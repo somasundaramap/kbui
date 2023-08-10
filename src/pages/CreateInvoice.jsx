@@ -27,6 +27,7 @@ const CreateInvoice = () => {
 
   const fetchUserData = () => {
     fetch(
+      //accounts/pagination
       "http://localhost:8080/1.0/kb/accounts/search/test_json_user3_killbill",
       {
         method: "GET",
