@@ -13,15 +13,15 @@ function App() {
     return (
         <div>
         <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/landingpage" element={<Landing />} />
-            <Route path="/viewinvoices" element={<ListInvoices />} />
-            <Route path="/viewpmtpending" element={<ViewPending />} />
-            <Route path="/createsubscriber" element={<CreateSubscriber />} />
-            <Route path="/paymentupdate" element={<PaymentUpdate />} />
-            <Route path="/createinvoice" element={<CreateInvoice />} />
-            <Route path="/updatepassword" element={<UpdatePassword />} />
+            <Route path="/ui" element={<SignIn />} />
+            <Route path="/ui/signin" element={<SignIn />} />
+            <Route path="/ui/landingpage" element={<Landing />} />
+            <Route path="/ui/viewinvoices" element={<ListInvoices />} />
+            <Route path="/ui/viewpmtpending" element={<ViewPending />} />
+            <Route path="/ui/createsubscriber" element={<CreateSubscriber />} />
+            <Route path="/ui/paymentupdate" element={<PaymentUpdate />} />
+            <Route path="/ui/createinvoice" element={<CreateInvoice />} />
+            <Route path="/ui/updatepassword" element={<UpdatePassword />} />
         </Routes>
         </div>
     )

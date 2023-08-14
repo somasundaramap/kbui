@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function CreateSubscriber() {
   const [subName, setSubName] = useState("");
@@ -20,26 +21,25 @@ export default function CreateSubscriber() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
+  const name = Cookies.get("username");
+  const pass = Cookies.get("password");  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
   };
 
   function myFunction() {
-    let username = "admin";
-    let pass = "password";
-    fetch("http://localhost:8080/1.0/kb/accounts", {
-      method: "POST",
+    const URI_ACCOUNT_CREATE = "accounts";
+    fetch(process.env.REACT_APP_BASE_URL+URI_ACCOUNT_CREATE, {
+      method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${username}:${pass}`),
-        "Content-Type": "application/json",
-        "X-Killbill-ApiKey": "dwlservice",
-        "X-Killbill-ApiSecret": "dwlservice",
-        "X-Killbill-CreatedBy": "Soms",
+        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Accept: "*/*",
+        "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
+        "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
+        "X-kILLBILL-CreatedBy":"System Generated ",
       }),
       body: JSON.stringify({
         name: `${subName}`,
@@ -64,7 +64,9 @@ export default function CreateSubscriber() {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = "/Landingpage";
+    Cookies.set("username", name );
+    Cookies.set("password", pass );
+    let path = "/ui/Landingpage";
     navigate(path);
   };
 

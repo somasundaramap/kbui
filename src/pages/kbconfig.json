@@ -1,0 +1,5 @@
+{
+    "API_URL": "http://localhost:3000/1.0/kb",
+    "usename":"admin",
+    "password" : "password"
+  }

@@ -1,0 +1,38 @@
+  const fetchSubname = () => {
+   // users.map((user) => (console.log(user.invoiceDate, user.accountId)));
+    users.map(user) => ({ fetch("http://localhost:8080/1.0/kb/invoices/pagination", {
+      method: "GET",
+      headers: new Headers({
+        Authorization: "Basic " + btoa(`${email}:${pass}`),
+        Accept: "*/*",
+        "X-Killbill-ApiKey": "bob",
+        "X-Killbill-ApiSecret": "lazar",
+      }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setUsers(data);
+      });
+  });
+
+  // ----------------------
+  const fetchSubname = () => {
+    users.map((user) => { fetch("http://localhost:8080/1.0/kb/invoices/pagination", {
+      method: "GET",
+      headers: new Headers({
+        Authorization: "Basic " + btoa(`${email}:${pass}`),
+        Accept: "*/*",
+        "X-Killbill-ApiKey": "bob",
+        "X-Killbill-ApiSecret": "lazar",
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data1) => {
+        setUsers(data1);
+      });
+  })};
+// -------------------------

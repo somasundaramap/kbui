@@ -6,43 +6,44 @@ import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container"; 
+import Container from "@mui/material/Container";
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import logo from "./invoismart-logo.png";
+import Cookies from "js-cookie";
 
 export default function SignIn() {
- 
-  const [email, setEmail] = useState("");
-  const [pass, setPassword] = useState("");
-  
+  const [name, setName] = useState("");
+  const [pass, setPass] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
   };
 
   function myFunction() {
-    fetch("http://localhost:8080/1.0/kb/invoices/pagination", {
+    fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${email}:${pass}`),
+        Authorization: "Basic " + btoa(`${name}:${pass}`),
         Accept: "*/*",
-        "X-Killbill-ApiKey": "mytel2",
-        "Access-Control-Allow-Origin": "*",
-      "X-Killbill-ApiSecret": "mytel2",
+        "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
+        "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
       }),
-    }).then(response => response.json())
-    .then(json => console.log(json)); 
-      return(routeChange());
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(""));
+
+    return routeChange();
   }
-  let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = '/Landingpage'; 
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    Cookies.set("username", name );
+    Cookies.set("password", pass );
+    let path = "/ui/Landingpage";
     navigate(path);
-  }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -54,20 +55,21 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          InvoiSmart - Sign in
+        <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="150" height="100" class="left" />
+          <br></br> Signin
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required
             fullWidth
-            id="email"
+            id="name"
             label="Username"
-            name="email"
-            autoComplete="email"
+            name="name"
+            autoComplete="name"
             autoFocus
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
           <TextField
             margin="normal"
@@ -78,7 +80,7 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPass(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
