@@ -36,22 +36,23 @@ const ListInvoices = () => {
       })
       .then((data) => {
         setUsers(data);
-      });
+      }) ;
+      //.then(console.log(JSON.stringify(users[0].name)))
   };
 
   useEffect(() => {
     fetchSubname();
   }, []);
- // console.log(selectedValue);
+ //console.log(JSON.stringify(users[selectedValue].name));
  
   let navigate = useNavigate();
   const routeChange = () => {
     Cookies.set("username", name );
     Cookies.set("password", pass );
     let a = selectedValue;
-    console.log("ID"+ selectedValue);
-    Cookies.set("accId", a);
-    Cookies.set("accName", a);
+    console.log("ID"+ users[a].accountId );
+    Cookies.set("accId", users[a].accountId);
+    Cookies.set("accName", users[a].name);
 let path = "/ui/InvoiceList";
     navigate(path);}
 
@@ -79,11 +80,11 @@ let path = "/ui/InvoiceList";
         value={selectedValue}
         onChange={handleSelectChange}
       >
-        {users.map((option) => (
-          <option value={option.accountId}>{option.name}</option>
+        {users.map((key, index) => (
+          <option value={index}>{key.name}</option>
+          
         ))}
       </select>
-      <p>Subscriber ID: {selectedValue}</p>
      
       <Button
         type="submit"

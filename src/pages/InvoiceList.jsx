@@ -12,15 +12,15 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 
 const ListInvoices = () => {
-  const [users, setUsers] = useState([]);
+  const [invoice, setInvoice] = useState([]);
   const name = Cookies.get("username");
   const pass = Cookies.get("password");
-  const accId = Cookies.get("accId");
+  const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
-  let URL="http://localhost:8080/1.0/kb/accounts/" + accId + "/invoices";
-  
+  let URL = process.env.REACT_APP_BASE_URL + "accounts/" + subId + "/invoices";
+ // console.log(subName);
   const fetchInvoices = () => {
-        fetch(URL, {
+    fetch(URL, {
       method: "GET",
       headers: new Headers({
         Authorization: "Basic " + btoa(`${name}:${pass}`),
@@ -33,13 +33,13 @@ const ListInvoices = () => {
         return response.json();
       })
       .then((data) => {
-        setUsers(data)});
-      };
-  
-  
+        setInvoice(data);
+      });
+  };
+
   useEffect(() => {
     fetchInvoices();
-    }, );
+  });
 
   return (
     <Container component="main" maxWidth="sm">
@@ -54,7 +54,7 @@ const ListInvoices = () => {
       <Typography component="h1" variant="h5" align="center">
         InvoiSmart - Invoices
         <br></br>
-        <h5>Subscriber ID: {subName}</h5>
+        <p>Subscriber: {subName}</p>
       </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
@@ -62,15 +62,17 @@ const ListInvoices = () => {
             <TableRow>
               <TableCell align="right">Date </TableCell>
               <TableCell align="right">Invoice number</TableCell>
-                     </TableRow>
+              <TableCell align="right">Amount</TableCell>
+            </TableRow>
           </TableHead>
-          <TableBody> 
-            {users.map((invois) => (
+          <TableBody>
+            {invoice.map((invField) => (
               <TableRow>
-                <TableCell align="right">{invois.invoiceId}</TableCell>
-                <TableCell align="right">{invois.invoiceNumber}</TableCell>             
+                <TableCell align="right">{invField.invoiceDate}</TableCell>
+                <TableCell align="right">{invField.invoiceNumber}</TableCell>
+                <TableCell align="right">{invField.amount}</TableCell>
               </TableRow>
-            ))}         
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
