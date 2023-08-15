@@ -8,6 +8,7 @@ import CreateSubscriber from './pages/CreateSubscriber';
 import PaymentUpdate from './pages/PaymentUpdate';
 import CreateInvoice from './pages/CreateInvoice';
 import UpdatePassword from './pages/UpdatePassword';
+import InvoiceList  from './pages/InvoiceList';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/ui/paymentupdate" element={<PaymentUpdate />} />
             <Route path="/ui/createinvoice" element={<CreateInvoice />} />
             <Route path="/ui/updatepassword" element={<UpdatePassword />} />
+            <Route path="/ui/invoicelist" element={<InvoiceList />} />
         </Routes>
         </div>
     )

@@ -45,13 +45,14 @@ const CreateInvoice = () => {
       })
       .then((data) => {
         setUsers(data);
-
+       
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(process.env.REACT_APP_BASE_URL+URI_INVOICE_GEN+selectedValue, {
-          method: "GET",
+          method: "POST",
           headers: new Headers({
             Authorization: "Basic " + btoa(`${name}:${pass}`),
             Accept: "*/*",
+            "Content-Type": "application/json",
             "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
             "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
             "X-kILLBILL-CreatedBy":"System Generated ",
@@ -61,13 +62,13 @@ const CreateInvoice = () => {
               description: `${description}`,
               planName: `${reason}`,
               amount: `${amount}`,
-              currency: `${currency}`,
+              currency: "USD",
               accountId: `${selectedValue}`,
             },
           ]),
         })
           .then((res) => res.json()) // no error is thrown
-          .then(() => alert("Success")) //
+          .then(() => {routeChange()}) //
           .catch(() => console.log("Error"));
       });
   };
@@ -100,7 +101,7 @@ const CreateInvoice = () => {
             InvoiSmart - generate invoice
           </Typography>
           <br></br> <br></br> <br></br>
-          <Typography inline variant="body5" align="left" noWrap>subscriber</Typography>
+          <Typography inline variant="body5" align="left" noWrap>select subscriber</Typography>
           <nobr></nobr>
           <Box
             component="form"
@@ -115,7 +116,7 @@ const CreateInvoice = () => {
                 <option value={option.accountId}>{option.name}</option>
               ))}
             </select>
-            <p>We eat {selectedValue}!</p>
+            <p> subscriber ID: {selectedValue}!</p>
                      <TextField
               margin="normal"
               required

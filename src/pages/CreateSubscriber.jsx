@@ -32,11 +32,13 @@ export default function CreateSubscriber() {
 
   function myFunction() {
     const URI_ACCOUNT_CREATE = "accounts";
+
     fetch(process.env.REACT_APP_BASE_URL+URI_ACCOUNT_CREATE, {
-      method: "GET",
+      method: "POST",
       headers: new Headers({
         Authorization: "Basic " + btoa(`${name}:${pass}`),
         Accept: "*/*",
+        "Content-Type": "application/json",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
         "X-kILLBILL-CreatedBy":"System Generated ",
@@ -53,7 +55,7 @@ export default function CreateSubscriber() {
         externalKey: `${subName}_killbill`,
         email: `${email}}`,
         phone: `${phone}`,
-        currency: `${currency}`,
+        currency: "USD",
       }),
     })
       .then((res) => res.json()) // no error is thrown
