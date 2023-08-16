@@ -93,7 +93,7 @@ export default function CreateSubscriber() {
             id="sub_name"
             label="Subscriber name"
             name="sub_name"
-            autoComplete="email"
+            autoComplete="sub_name"
             autoFocus
             onChange={(e) => setSubName(e.target.value)}
           />
@@ -104,7 +104,7 @@ export default function CreateSubscriber() {
             id="company_name"
             label="Company name"
             name="company_name"
-            autoComplete="email"
+            autoComplete="company_name"
             onChange={(e) => setCompanyName(e.target.value)}
           />
           <TextField
@@ -114,7 +114,7 @@ export default function CreateSubscriber() {
             id="address1"
             label="Address 1"
             name="address1"
-            autoComplete="email"
+            autoComplete="address1"
             onChange={(e) => setAddr1(e.target.value)}
           />
           <TextField
@@ -124,7 +124,7 @@ export default function CreateSubscriber() {
             id="address2"
             label="Address 2"
             name="address2"
-            autoComplete="email"
+            autoComplete="address2"
             onChange={(e) => setAddr2(e.target.value)}
           />
           <TextField
@@ -134,7 +134,7 @@ export default function CreateSubscriber() {
             id="city"
             label="City"
             name="city"
-            autoComplete="email"
+            autoComplete="city"
             onChange={(e) => setCity(e.target.value)}
           />
           <TextField
@@ -144,7 +144,7 @@ export default function CreateSubscriber() {
             id="state"
             label="State"
             name="state"
-            autoComplete="email"
+            autoComplete="state"
             onChange={(e) => setState(e.target.value)}
           />
           <TextField
@@ -154,7 +154,8 @@ export default function CreateSubscriber() {
             id="country"
             label="Country"
             name="country"
-            autoComplete="email"
+            autoComplete="country"
+            defaultValue="USA"
             onChange={(e) => setCountry(e.target.value)}
           />
           <TextField
@@ -164,7 +165,7 @@ export default function CreateSubscriber() {
             id="postalcode"
             label="Postal code"
             name="postalcode"
-            autoComplete="email"
+            autoComplete="postalcode"
             onChange={(e) => setPostalCode(e.target.value)}
           />
           <TextField
@@ -174,7 +175,8 @@ export default function CreateSubscriber() {
             id="currency"
             label="Currency"
             name="currency"
-            autoComplete="email"
+            autoComplete="currency"
+            defaultValue="USD"
             onChange={(e) => setCurrency(e.target.value)}
           />
           <TextField
@@ -184,7 +186,7 @@ export default function CreateSubscriber() {
             id="phone"
             label="Phone #"
             name="phone"
-            autoComplete="email"
+            autoComplete="phone"
             onChange={(e) => setPhone(e.target.value)}
           />
           <TextField

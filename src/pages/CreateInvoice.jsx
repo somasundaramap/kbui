@@ -124,7 +124,7 @@ const CreateInvoice = () => {
               id="desc"
               label="Description"
               name="desc"
-              autoComplete="email"
+              autoComplete="desc"
               autoFocus
               onChange={(e) => setDesc(e.target.value)}
             />
@@ -135,7 +135,7 @@ const CreateInvoice = () => {
               id="plan_name"
               label="Reason "
               name="reason"
-              autoComplete="email"
+              autoComplete="reason"
               onChange={(e) => setReason(e.target.value)}
             />
             <TextField
@@ -145,7 +145,7 @@ const CreateInvoice = () => {
               id="amount"
               label="Amount"
               name="amount"
-              autoComplete="email"
+              autoComplete="amount"
               onChange={(e) => setAmount(e.target.value)}
             />
             <TextField
@@ -155,7 +155,7 @@ const CreateInvoice = () => {
               id="currency"
               label="Currency"
               name="currency"
-              autoComplete="email"
+              autoComplete="currency"
               onChange={(e) => setCurrency(e.target.value)}
             />
             <Button

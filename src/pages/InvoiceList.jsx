@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
+import { Link } from "react-router-dom"
 
 const ListInvoices = () => {
   const [invoice, setInvoice] = useState([]);
@@ -17,7 +18,7 @@ const ListInvoices = () => {
   const pass = Cookies.get("password");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
-  let URL = process.env.REACT_APP_BASE_URL + "accounts/" + subId + "/invoices";
+  let URL = process.env.REACT_APP_BASE_URL + "accounts/" + subId + "/invoices?includeInvoiceComponents=true";
  // console.log(subName);
   const fetchInvoices = () => {
     fetch(URL, {
@@ -62,14 +63,14 @@ const ListInvoices = () => {
             <TableRow>
               <TableCell align="right">Date </TableCell>
               <TableCell align="right">Invoice number</TableCell>
-              <TableCell align="right">Amount</TableCell>
+              <TableCell align="right">Amount($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {invoice.map((invField) => (
               <TableRow>
                 <TableCell align="right">{invField.invoiceDate}</TableCell>
-                <TableCell align="right">{invField.invoiceNumber}</TableCell>
+                <TableCell align="right"> <Link to="http:/localhost:3000/invoiceHtmlview">{invField.invoiceNumber}</Link></TableCell>
                 <TableCell align="right">{invField.amount}</TableCell>
               </TableRow>
             ))}
