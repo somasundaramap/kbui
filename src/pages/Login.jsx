@@ -20,7 +20,7 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
-
+  console.log("Login: "+ name, pass); 
   function myFunction() {
     fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
@@ -32,13 +32,14 @@ export default function SignIn() {
       }),
     })
       .then((response) => response.json())
-      .then((json) => console.log(""));
+      .then((json) => console.log("in Login"));
 
     return routeChange();
   }
 
   let navigate = useNavigate();
   const routeChange = () => {
+    console.log("Login: "+ name, pass);
     Cookies.set("username", name );
     Cookies.set("password", pass );
     let path = "/ui/Landingpage";

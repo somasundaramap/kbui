@@ -17,18 +17,20 @@ const ListInvoices = () => {
   const pass = Cookies.get("password");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
-  
+  //const name = "admin";
+  //const pass = "password";
+  console.log("Viewinvoices: "+name, pass);
   const fetchSubname = () => {
     //-----
     //console.log("In fetchSubname");
-    console.log(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG);
+    console.log(URI_ACCOUNT_PG, process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG);
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
         Authorization: "Basic " + btoa(`${name}:${pass}`),
         Accept: "*/*",
-        "X-Killbill-ApiKey": "mytel2",
-        "X-Killbill-ApiSecret": "mytel2",
+        "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
+        "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
       }),
     })
       .then((response) => {
@@ -80,6 +82,9 @@ let path = "/ui/InvoiceList";
         value={selectedValue}
         onChange={handleSelectChange}
       >
+                                    <option value="none" >
+                -- Select subscriber --
+            </option>
         {users.map((key, index) => (
           <option value={index}>{key.name}</option>
           

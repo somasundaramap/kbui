@@ -27,6 +27,7 @@ const CreateInvoice = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
+  console.log("Create Invoice: "+name, pass);
 
   const URI_ACCOUNT_PG = "accounts/pagination";
   const fetchUserData = () => {
@@ -45,7 +46,7 @@ const CreateInvoice = () => {
       })
       .then((data) => {
         setUsers(data);
-       
+       console.log(name,pass);
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(process.env.REACT_APP_BASE_URL+URI_INVOICE_GEN+selectedValue, {
           method: "POST",
@@ -112,12 +113,14 @@ const CreateInvoice = () => {
             <select margin="normal"
               
               fullWidth value={selectedValue} onChange={handleSelectChange}>
+                            <option value="none" >
+                -- Select subscriber --
+            </option>
               {users.map((option) => (
                 <option value={option.accountId}>{option.name}</option>
               ))}
             </select>
-            <p> subscriber ID: {selectedValue}!</p>
-                     <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -147,16 +150,6 @@ const CreateInvoice = () => {
               name="amount"
               autoComplete="amount"
               onChange={(e) => setAmount(e.target.value)}
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="currency"
-              label="Currency"
-              name="currency"
-              autoComplete="currency"
-              onChange={(e) => setCurrency(e.target.value)}
             />
             <Button
               type="createsub"
