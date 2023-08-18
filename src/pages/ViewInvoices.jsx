@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import logo from "./invoismart-logo.png";
 
 // const [selectedValue, setSelectedValue] = useState("");
 
@@ -68,8 +69,12 @@ let path = "/ui/InvoiceList";
           alignItems: "center",
         }}
       ></Box>
+ <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <br></br>
+        </Typography>
       <Typography component="h1" variant="h5" align="center">
-        InvoiSmart - Invoices
+        Invoices
       </Typography>
       <br></br> <br></br> <br></br>
       <Typography inline variant="body5" align="left" noWrap>

@@ -56,9 +56,9 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="150" height="100" class="left" />
-          <br></br> Signin
+       <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="375" height="125" class="left" />
+          <br></br>
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
