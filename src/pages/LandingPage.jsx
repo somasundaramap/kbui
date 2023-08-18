@@ -32,48 +32,55 @@ const styles = (theme) => ({
   icon: {},
 });
 
-const name = Cookies.get("username");
-const pass = Cookies.get("password");
-
 
 function ListItemComposition(props) {
-  const { classes } = props;
-  Cookies.set("username", name, { expires: 7 });
-  Cookies.set("password", pass, { expires: 7 });
+  const name = Cookies.get("username");
+const pass = Cookies.get("password");
 
-  
+console.log("landing page: "+name, pass);
+  const { classes } = props;
+
+  let navigate4 = useNavigate();
+  const clickCreateSubscriber = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
+    let path = "/ui/createsubscriber";
+    navigate4(path);
+  };
+  let navigate3 = useNavigate();
+  const clickCreateInvoice = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
+    let path = "/ui/createinvoice";
+    navigate3(path);
+  };
   let navigate = useNavigate();
   const clickInvoicesList = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
     let path = "/ui/viewinvoices";
     navigate(path);
   };
 
   let navigate2 = useNavigate();
   const clickPaymentUpdate = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
     let path = "/ui/paymentupdate";
     navigate2(path);
   };
-
-  let navigate3 = useNavigate();
-  const clickCreateInvoice = () => {
-    let path = "/ui/createinvoice";
-    navigate3(path);
-  };
-
-  let navigate4 = useNavigate();
-  const clickCreateSubscriber = () => {
-    let path = "/ui/createsubscriber";
-    navigate4(path);
-  };
-
   let navigate5 = useNavigate();
   const clickPaymentPending = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
     let path = "/ui/viewpmtpending";
     navigate5(path);
   };
 
   let navigate6 = useNavigate();
   const clickUpdatePassword = () => {
+    Cookies.set("username", name, { expires: 7 });
+    Cookies.set("password", pass, { expires: 7 });
     let path = "/ui/updatepassword";
     navigate6(path);
   };
@@ -93,27 +100,6 @@ function ListItemComposition(props) {
         </Typography>
         <Paper style={{ width: "350px" }}>
           <MenuList>
-            <MenuItem onClick={clickInvoicesList} className={classes.menuItem}>
-              <ListItemIcon className={classes.icon}>
-                <ReceiptOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText
-                classes={{ primary: classes.primary }}
-                inset
-                primary="View invoices"
-              />
-            </MenuItem>
-
-            <MenuItem onClick={clickCreateInvoice} className={classes.menuItem}>
-              <ListItemIcon className={classes.icon}>
-                <CreateOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText
-                classes={{ primary: classes.primary }}
-                inset
-                primary="Create invoice"
-              />
-            </MenuItem>
             <MenuItem
               onClick={clickCreateSubscriber}
               className={classes.menuItem}
@@ -125,6 +111,26 @@ function ListItemComposition(props) {
                 classes={{ primary: classes.primary }}
                 inset
                 primary="Create subscriber"
+              />
+            </MenuItem>
+            <MenuItem onClick={clickCreateInvoice} className={classes.menuItem}>
+              <ListItemIcon className={classes.icon}>
+                <CreateOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                classes={{ primary: classes.primary }}
+                inset
+                primary="Create invoice"
+              />
+            </MenuItem>
+            <MenuItem onClick={clickInvoicesList} className={classes.menuItem}>
+              <ListItemIcon className={classes.icon}>
+                <ReceiptOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                classes={{ primary: classes.primary }}
+                inset
+                primary="View invoices"
               />
             </MenuItem>
             <MenuItem

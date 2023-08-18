@@ -70,8 +70,8 @@ const ListInvoices = () => {
             {invoice.map((invField) => (
               <TableRow>
                 <TableCell align="right">{invField.invoiceDate}</TableCell>
-                <TableCell align="right"> <Link to="http:/localhost:3000/invoiceHtmlview">{invField.invoiceNumber}</Link></TableCell>
-                <TableCell align="right">{invField.amount}</TableCell>
+                <TableCell align="right"> <Link to="https:/invoismart.com/ui/InvoiceHtmlview">{invField.invoiceNumber}</Link></TableCell>
+                <TableCell align="right">{invField.amount.toFixed(2)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
