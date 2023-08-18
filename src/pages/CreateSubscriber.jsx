@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import logo from "./invoismart-logo.png";
 
 export default function CreateSubscriber() {
   const [subName, setSubName] = useState("");
@@ -82,6 +83,10 @@ export default function CreateSubscriber() {
           alignItems: "center",
         }}
       >
+          <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <br></br>
+        </Typography>
         <Typography component="h1" variant="h5">
           InvoiSmart - Create subscriber
         </Typography>

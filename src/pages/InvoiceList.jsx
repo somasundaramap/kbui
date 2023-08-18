@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom"
+import logo from "./invoismart-logo.png";
 
 const ListInvoices = () => {
   const [invoice, setInvoice] = useState([]);
@@ -52,8 +53,12 @@ const ListInvoices = () => {
           alignItems: "center",
         }}
       ></Box>
+       <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <br></br>
+        </Typography>
       <Typography component="h1" variant="h5" align="center">
-        InvoiSmart - Invoices
+        Invoices
         <br></br>
         <p>Subscriber: {subName}</p>
       </Typography>

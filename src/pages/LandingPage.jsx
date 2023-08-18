@@ -95,8 +95,9 @@ console.log("landing page: "+name, pass);
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          <img src={logo} alt="Logo" width="150" height="100" class="left" />
+       <Typography component="h1" variant="h5" align="center">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <br></br>
         </Typography>
         <Paper style={{ width: "350px" }}>
           <MenuList>

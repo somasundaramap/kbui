@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import logo from "./invoismart-logo.png";
 
 const name = Cookies.get("username");
 const pass = Cookies.get("password");
@@ -99,11 +99,13 @@ const CreateInvoice = () => {
           }}
         >
           <Typography component="h1" variant="h5" align="center">
-            InvoiSmart - generate invoice
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <br></br>
+        </Typography>
+          <Typography component="h1" variant="h5" align="center">
+            Generate invoice
           </Typography>
-          <br></br> <br></br> <br></br>
-          <Typography inline variant="body5" align="left" noWrap>select subscriber</Typography>
-          <nobr></nobr>
+          <br></br> <br></br>
           <Box
             component="form"
             onSubmit={handleSubmit}
