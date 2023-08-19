@@ -42,45 +42,45 @@ console.log("landing page: "+name, pass);
 
   let navigate4 = useNavigate();
   const clickCreateSubscriber = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/createsubscriber";
     navigate4(path);
   };
   let navigate3 = useNavigate();
   const clickCreateInvoice = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/createinvoice";
     navigate3(path);
   };
   let navigate = useNavigate();
   const clickInvoicesList = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/viewinvoices";
     navigate(path);
   };
 
   let navigate2 = useNavigate();
   const clickPaymentUpdate = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/paymentupdate";
     navigate2(path);
   };
   let navigate5 = useNavigate();
   const clickPaymentPending = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/viewpmtpending";
     navigate5(path);
   };
 
   let navigate6 = useNavigate();
   const clickUpdatePassword = () => {
-    Cookies.set("username", name, { expires: 7 });
-    Cookies.set("password", pass, { expires: 7 });
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/updatepassword";
     navigate6(path);
   };
