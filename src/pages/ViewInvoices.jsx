@@ -56,7 +56,7 @@ const ListInvoices = () => {
     console.log("ID"+ users[a].accountId );
     Cookies.set("accId", users[a].accountId);
     Cookies.set("accName", users[a].name);
-let path = "/ui/InvoiceList";
+    let path = "/ui/InvoiceList";
     navigate(path);}
 
   return (

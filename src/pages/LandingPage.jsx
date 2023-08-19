@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import { withStyles } from "@material-ui/core/styles";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ReceiptOutlinedIcon from "@material-ui/icons/ReceiptOutlined";
 import PaymentOutlinedIcon from "@material-ui/icons/PaymentOutlined";
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
@@ -83,6 +84,16 @@ console.log("landing page: "+name, pass);
     Cookies.set("password", pass);
     let path = "/ui/updatepassword";
     navigate6(path);
+  };
+
+  let navigate7 = useNavigate();
+  const clickSignout = () => {
+    Cookies.remove("username");
+    Cookies.remove("password");
+    let path = "/ui/Signin";
+    navigate7(path);
+    alert("Signout successfully!");
+
   };
 
   return (
@@ -169,6 +180,20 @@ console.log("landing page: "+name, pass);
                 classes={{ primary: classes.primary }}
                 inset
                 primary="Update password"
+              />
+            </MenuItem>
+
+            <MenuItem
+              onClick={clickSignout}
+              className={classes.menuItem}
+            >
+              <ListItemIcon className={classes.icon}>
+                <LogoutOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                classes={{ primary: classes.primary }}
+                inset
+                primary="Signout"
               />
             </MenuItem>
           </MenuList>
