@@ -10,18 +10,24 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
-import { Link } from "react-router-dom"
 import logo from "./invoismart-logo.png";
 
 const ListInvoices = () => {
+  useEffect(() => {
+    fetchInvoices("accounts");
+  }, []);
   const [invoice, setInvoice] = useState([]);
   const name = Cookies.get("username");
   const pass = Cookies.get("password");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
-  let URL = process.env.REACT_APP_BASE_URL + "accounts/" + subId + "/invoices?includeInvoiceComponents=true";
- // console.log(subName);
-  const fetchInvoices = () => {
+  let URL =
+    process.env.REACT_APP_BASE_URL +
+    "accounts/" +
+    subId +
+    "/invoices?includeInvoiceComponents=true";
+  console.log("In invoiceList " + subName + "|" + URL);
+  const fetchInvoices = (a) => {
     fetch(URL, {
       method: "GET",
       headers: new Headers({
@@ -39,9 +45,27 @@ const ListInvoices = () => {
       });
   };
 
-  useEffect(() => {
-    fetchInvoices();
-  });
+  function htmlView(a) {
+    var w = window.open("", "wnd");
+    console.log("Test" + a);
+    const URI_INV_VIEW = "invoices/";
+    const URI_HTML = "/html";
+    fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Accept: "*/*",
+        "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
+        "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
+      }),
+    })
+      .then((response) => {
+        return response.text();
+      })
+      .then((html) => {
+        w.document.body.innerHTML = html;
+      });
+  }
 
   return (
     <Container component="main" maxWidth="sm">
@@ -53,10 +77,10 @@ const ListInvoices = () => {
           alignItems: "center",
         }}
       ></Box>
-       <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="250" height="83" class="left" />
-          <br></br>
-        </Typography>
+      <Typography component="h1" variant="h5" align="center">
+        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <br></br>
+      </Typography>
       <Typography component="h1" variant="h5" align="center">
         Invoices
         <br></br>
@@ -75,8 +99,14 @@ const ListInvoices = () => {
             {invoice.map((invField) => (
               <TableRow>
                 <TableCell align="right">{invField.invoiceDate}</TableCell>
-                <TableCell align="right"> <Link to="https:/invoismart.com/ui/InvoiceHtmlview">{invField.invoiceNumber}</Link></TableCell>
-                <TableCell align="right">{invField.amount.toFixed(2)}</TableCell>
+                <TableCell align="right">
+                  <a href="#" onClick={() => htmlView(`${invField.invoiceId}`)}>
+                    {invField.invoiceNumber}
+                  </a>
+                </TableCell>
+                <TableCell align="right">
+                  {invField.amount.toFixed(2)}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

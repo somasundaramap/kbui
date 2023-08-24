@@ -23,18 +23,17 @@ export default function CreateSubscriber() {
   const [email, setEmail] = useState("");
 
   const name = Cookies.get("username");
-  const pass = Cookies.get("password");  
+  const pass = Cookies.get("password");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
   };
 
   function myFunction() {
     const URI_ACCOUNT_CREATE = "accounts";
 
-    fetch(process.env.REACT_APP_BASE_URL+URI_ACCOUNT_CREATE, {
+    fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_CREATE, {
       method: "POST",
       headers: new Headers({
         Authorization: "Basic " + btoa(`${name}:${pass}`),
@@ -42,7 +41,7 @@ export default function CreateSubscriber() {
         "Content-Type": "application/json",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
-        "X-kILLBILL-CreatedBy":"System Generated ",
+        "X-kILLBILL-CreatedBy": "System Generated ",
       }),
       body: JSON.stringify({
         name: `${subName}`,
@@ -60,15 +59,15 @@ export default function CreateSubscriber() {
       }),
     })
       .then((res) => res.json()) // no error is thrown
-      .then(() => alert("Subscriber created successfully")) 
+      .then(() => alert("Subscriber created successfully"))
       .catch(() => console.log("Error"));
     return routeChange();
   }
 
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name );
-    Cookies.set("password", pass );
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -83,7 +82,7 @@ export default function CreateSubscriber() {
           alignItems: "center",
         }}
       >
-          <Typography component="h1" variant="h5" align="center">
+        <Typography component="h1" variant="h5" align="center">
           <img src={logo} alt="Logo" width="250" height="83" class="left" />
           <br></br>
         </Typography>

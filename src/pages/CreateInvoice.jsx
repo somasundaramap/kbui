@@ -9,9 +9,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 
-const name = Cookies.get("username");
-const pass = Cookies.get("password");
-
 const CreateInvoice = () => {
   const [users, setUsers] = useState([]);
   const [description, setDesc] = useState("");
@@ -19,7 +16,8 @@ const CreateInvoice = () => {
   const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-
+  const name = Cookies.get("username");
+  const pass = Cookies.get("password");
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -27,11 +25,11 @@ const CreateInvoice = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
-  console.log("Create Invoice: "+name, pass);
+  console.log("Create Invoice: " + name, pass);
 
   const URI_ACCOUNT_PG = "accounts/pagination";
   const fetchUserData = () => {
-    fetch(process.env.REACT_APP_BASE_URL+URI_ACCOUNT_PG, {
+    fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
         Authorization: "Basic " + btoa(`${name}:${pass}`),
@@ -39,48 +37,52 @@ const CreateInvoice = () => {
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
       }),
-      }
-    )
+    })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         setUsers(data);
-       console.log(name,pass);
+        console.log(name, pass);
         const URI_INVOICE_GEN = "invoices/charges/";
-        fetch(process.env.REACT_APP_BASE_URL+URI_INVOICE_GEN+selectedValue, {
-          method: "POST",
-          headers: new Headers({
-            Authorization: "Basic " + btoa(`${name}:${pass}`),
-            Accept: "*/*",
-            "Content-Type": "application/json",
-            "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
-            "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
-            "X-kILLBILL-CreatedBy":"System Generated ",
-          }),
-          body: JSON.stringify([
-            {
-              description: `${description}`,
-              planName: `${reason}`,
-              amount: `${amount}`,
-              currency: "USD",
-              accountId: `${selectedValue}`,
-            },
-          ]),
-        })
+        fetch(
+          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue,
+          {
+            method: "POST",
+            headers: new Headers({
+              Authorization: "Basic " + btoa(`${name}:${pass}`),
+              Accept: "*/*",
+              "Content-Type": "application/json",
+              "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
+              "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
+              "X-kILLBILL-CreatedBy": "System Generated ",
+            }),
+            body: JSON.stringify([
+              {
+                description: `${description}`,
+                planName: `${reason}`,
+                amount: `${amount}`,
+                currency: "USD",
+                accountId: `${selectedValue}`,
+              },
+            ]),
+          }
+        )
           .then((res) => res.json()) // no error is thrown
-          .then(() => {routeChange()}) //
+          .then(() => {
+            routeChange();
+          }) //
           .catch(() => console.log("Error"));
       });
   };
   useEffect(() => {
     fetchUserData();
   }, []);
-  
+
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name );
-    Cookies.set("password", pass );
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -95,13 +97,13 @@ const CreateInvoice = () => {
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
-          //  alignItems: "center",
+            //  alignItems: "center",
           }}
         >
           <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="250" height="83" class="left" />
-          <br></br>
-        </Typography>
+            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+            <br></br>
+          </Typography>
           <Typography component="h1" variant="h5" align="center">
             Generate invoice
           </Typography>
@@ -112,12 +114,13 @@ const CreateInvoice = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <select margin="normal"
-              
-              fullWidth value={selectedValue} onChange={handleSelectChange}>
-                            <option value="none" >
-                -- Select subscriber --
-            </option>
+            <select
+              margin="normal"
+              fullWidth
+              value={selectedValue}
+              onChange={handleSelectChange}
+            >
+              <option value="none">-- Select subscriber --</option>
               {users.map((option) => (
                 <option value={option.accountId}>{option.name}</option>
               ))}

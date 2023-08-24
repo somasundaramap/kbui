@@ -20,11 +20,15 @@ const ListInvoices = () => {
   const URI_ACCOUNT_PG = "accounts/pagination";
   //const name = "admin";
   //const pass = "password";
-  console.log("Viewinvoices: "+name, pass);
+
   const fetchSubname = () => {
     //-----
+    console.log("Viewinvoices: " + name, pass);
     //console.log("In fetchSubname");
-    console.log(URI_ACCOUNT_PG, process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG);
+    console.log(
+      URI_ACCOUNT_PG,
+      process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG
+    );
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
@@ -39,25 +43,26 @@ const ListInvoices = () => {
       })
       .then((data) => {
         setUsers(data);
-      }) ;
-      //.then(console.log(JSON.stringify(users[0].name)))
+      });
+    //.then(console.log(JSON.stringify(users[0].name)))
   };
 
   useEffect(() => {
     fetchSubname();
   }, []);
- //console.log(JSON.stringify(users[selectedValue].name));
- 
+  //console.log(JSON.stringify(users[selectedValue].name));
+
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name );
-    Cookies.set("password", pass );
+    Cookies.set("username", name);
+    Cookies.set("password", pass);
     let a = selectedValue;
-    console.log("ID"+ users[a].accountId );
+    console.log("ID" + users[a].accountId);
     Cookies.set("accId", users[a].accountId);
     Cookies.set("accName", users[a].name);
-let path = "/ui/InvoiceList";
-    navigate(path);}
+    let path = "/ui/InvoiceList";
+    navigate(path);
+  };
 
   return (
     <Container component="main" maxWidth="sm">
@@ -69,10 +74,10 @@ let path = "/ui/InvoiceList";
           alignItems: "center",
         }}
       ></Box>
- <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="250" height="83" class="left" />
-          <br></br>
-        </Typography>
+      <Typography component="h1" variant="h5" align="center">
+        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <br></br>
+      </Typography>
       <Typography component="h1" variant="h5" align="center">
         Invoices
       </Typography>
@@ -87,15 +92,11 @@ let path = "/ui/InvoiceList";
         value={selectedValue}
         onChange={handleSelectChange}
       >
-                                    <option value="none" >
-                -- Select subscriber --
-            </option>
+        <option value="none">-- Select subscriber --</option>
         {users.map((key, index) => (
           <option value={index}>{key.name}</option>
-          
         ))}
       </select>
-     
       <Button
         type="submit"
         fullWidth
