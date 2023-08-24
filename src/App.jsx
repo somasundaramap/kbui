@@ -9,7 +9,8 @@ import PaymentUpdate from './pages/PaymentUpdate';
 import CreateInvoice from './pages/CreateInvoice';
 import UpdatePassword from './pages/UpdatePassword';
 import InvoiceList  from './pages/InvoiceList';
-import InvoiceHtmlview from './pages/invoiceHtmlview';
+import Woops404 from './pages/woops404';
+
 
 function App() {
     return (
@@ -25,7 +26,7 @@ function App() {
             <Route path="/ui/createinvoice" element={<CreateInvoice />} />
             <Route path="/ui/updatepassword" element={<UpdatePassword />} />
             <Route path="/ui/invoicelist" element={<InvoiceList />} />
-            <Route path="/ui/invoiceHtmlview" element={<InvoiceHtmlview />} />
+            <Route path="/ui/*" element={<Woops404 />} />
         </Routes>
         </div>
     )

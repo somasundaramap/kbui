@@ -15,15 +15,15 @@ import Cookies from "js-cookie";
 export default function SignIn() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
+  let navigate = useNavigate();
+  let navigate_signin = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
-  //console.log("Login: "+ name, pass); 
+  //console.log("Login: "+ name, pass);
   function myFunction() {
-
-
     fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
       headers: new Headers({
@@ -33,22 +33,29 @@ export default function SignIn() {
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
       }),
     })
-      .then((response) => { 
+      .then((response) => {
         console.log(response.status);
-       if(response.status !== 401){
-        Cookies.set("username", name );
-        Cookies.set("password", pass );
-    let path = "/ui/Landingpage";
-    navigate(path);
-      }}).catch(err => {
-        navigate_signin("/ui/signin");
-        alert("Login failed");
+        if (response.status !== 401) {
+          Cookies.set("username", name);
+          Cookies.set("password", pass);
+          let path = "/ui/Landingpage";
+          navigate(path);
+        } else {
+          alert("Login failed");
+          let path = "/ui";
+          navigate_signin(path);
+        }
+      })
+      .catch((err) => {
+        //alert("Login failed");
+        let path = "/ui";
+        navigate_signin(path);
       });
-    return ;
+    return;
   }
 
-  let navigate = useNavigate();
-  let navigate_signin = useNavigate();
+  //let navigate = useNavigate();
+  //let navigate_signin = useNavigate();
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,7 +67,7 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-       <Typography component="h1" variant="h5" align="center">
+        <Typography component="h1" variant="h5" align="center">
           <img src={logo} alt="Logo" width="375" height="125" class="left" />
           <br></br>
         </Typography>
