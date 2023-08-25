@@ -73,7 +73,7 @@ const ListInvoices = () => {
         sx={{
           marginTop: 8,
           display: "flex",
-          flexDirection: "column", 
+          flexDirection: "column",
           alignItems: "center",
         }}
       ></Box>
@@ -82,7 +82,7 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Pending payment
+        Invoices
         <br></br>
         <p>Subscriber: {subName}</p>
       </Typography>
@@ -92,24 +92,24 @@ const ListInvoices = () => {
             <TableRow>
               <TableCell align="right">Date </TableCell>
               <TableCell align="right">Invoice number</TableCell>
-              <TableCell align="right">Amount($)</TableCell>
+              <TableCell align="right">Balance($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {invoice.map((invField) => (
+            {invoice.filter(invField => invField.amount > 0).map(filteredInv  => (
               <TableRow>
-                <TableCell align="right">{invField.invoiceDate}</TableCell>
+                <TableCell align="right">{filteredInv.invoiceDate}</TableCell>
                 <TableCell align="right">
-                  <a href="#" onClick={() => htmlView(`${invField.invoiceId}`)}>
-                    {invField.invoiceNumber}
+                  <a href="#" onClick={() => htmlView(`${filteredInv.invoiceId}`)}>
+                    {filteredInv.invoiceNumber}
                   </a>
                 </TableCell>
-                <TableCell align="right">
-                  {invField.amount.toFixed(2)}
-                </TableCell>
+                <TableCell align="right"> {filteredInv.balance.toFixed(2)}</TableCell>
               </TableRow>
             ))}
-          </TableBody>
+
+
+          </TableBody> 
         </Table>
       </TableContainer>
     </Container>
