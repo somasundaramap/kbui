@@ -82,7 +82,7 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Pending payment
+        
         <br></br>
         <p>Subscriber: {subName}</p>
       </Typography>
