@@ -18,8 +18,7 @@ const ListInvoices = () => {
   const pass = Cookies.get("password");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
-  //const name = "admin";
-  //const pass = "password";
+ 
 
   const fetchSubname = () => {
     //-----

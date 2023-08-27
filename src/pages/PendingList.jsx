@@ -82,7 +82,7 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Invoices
+        Invoices - Payment pending
         <br></br>
         <p>Subscriber: {subName}</p>
       </Typography>
@@ -96,7 +96,7 @@ const ListInvoices = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {invoice.filter(invField => invField.amount > 0).map(filteredInv  => (
+            {invoice.filter(invField => invField.balance > 0).map(filteredInv  => (
               <TableRow>
                 <TableCell align="right">{filteredInv.invoiceDate}</TableCell>
                 <TableCell align="right">

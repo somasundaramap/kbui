@@ -46,7 +46,7 @@ const CreateInvoice = () => {
         console.log(name, pass);
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(
-          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue,
+          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue + "?autoCommit=true",
           {
             method: "POST",
             headers: new Headers({
