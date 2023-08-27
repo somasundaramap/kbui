@@ -21,10 +21,7 @@ export default function CreateSubscriber() {
   const [currency, setCurrency] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-
-  const name = Cookies.get("username");
-  const pass = Cookies.get("password");
-
+  const cred = Cookies.get("cred");
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -36,7 +33,7 @@ export default function CreateSubscriber() {
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_CREATE, {
       method: "POST",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "Content-Type": "application/json",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
@@ -52,8 +49,8 @@ export default function CreateSubscriber() {
         state: `${state}`,
         postalCode: `${postalCode}`,
         country: `${country}`,
-        externalKey: `${subName}_killbill`,
-        email: `${email}}`,
+        externalKey: `${subName}`,
+        email: `${email}`,
         phone: `${phone}`,
         currency: "USD",
       }),
@@ -66,8 +63,6 @@ export default function CreateSubscriber() {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };

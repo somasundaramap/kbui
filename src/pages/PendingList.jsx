@@ -81,6 +81,7 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
+        Invoices - Payment pending
         <br></br>
         <p>Subscriber: {subName}</p>
       </Typography>
@@ -90,23 +91,29 @@ const ListInvoices = () => {
             <TableRow>
               <TableCell align="right">Date </TableCell>
               <TableCell align="right">Invoice number</TableCell>
-              <TableCell align="right">Amount($)</TableCell>
+              <TableCell align="right">Balance($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {invoice.map((invField) => (
-              <TableRow>
-                <TableCell align="right">{invField.invoiceDate}</TableCell>
-                <TableCell align="right">
-                  <a href="#" onClick={() => htmlView(`${invField.invoiceId}`)}>
-                    {invField.invoiceNumber}
-                  </a>
-                </TableCell>
-                <TableCell align="right">
-                  {invField.amount.toFixed(2)}
-                </TableCell>
-              </TableRow>
-            ))}
+            {invoice
+              .filter((invField) => invField.balance > 0)
+              .map((filteredInv) => (
+                <TableRow>
+                  <TableCell align="right">{filteredInv.invoiceDate}</TableCell>
+                  <TableCell align="right">
+                    <a
+                      href="#"
+                      onClick={() => htmlView(`${filteredInv.invoiceId}`)}
+                    >
+                      {filteredInv.invoiceNumber}
+                    </a>
+                  </TableCell>
+                  <TableCell align="right">
+                    {" "}
+                    {filteredInv.balance.toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

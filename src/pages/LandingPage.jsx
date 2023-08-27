@@ -34,63 +34,48 @@ const styles = (theme) => ({
 });
 
 function ListItemComposition(props) {
-  const name = Cookies.get("username");
-  const pass = Cookies.get("password");
-
-  console.log("landing page: " + name, pass);
+  const cred = Cookies.get("cred");
+  console.log("landing page: " + cred);
   const { classes } = props;
 
   let navigate4 = useNavigate();
   const clickCreateSubscriber = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/createsubscriber";
     navigate4(path);
   };
   let navigate3 = useNavigate();
   const clickCreateInvoice = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/createinvoice";
     navigate3(path);
   };
   let navigate = useNavigate();
   const clickInvoicesList = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/viewinvoices";
     navigate(path);
   };
 
   let navigate2 = useNavigate();
   const clickPaymentUpdate = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/paymentupdate";
     navigate2(path);
   };
   let navigate5 = useNavigate();
   const clickPaymentPending = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/viewpmtpending";
     navigate5(path);
   };
 
   let navigate6 = useNavigate();
   const clickUpdatePassword = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let path = "/ui/updatepassword";
     navigate6(path);
   };
 
   let navigate7 = useNavigate();
   const clickSignout = () => {
-    Cookies.remove("username");
+    Cookies.remove("cred");
     Cookies.remove("accId");
     Cookies.remove("accName");
-    Cookies.remove("password");
     let path = "/ui/Signin";
     navigate7(path);
     alert("Signout successfully!");

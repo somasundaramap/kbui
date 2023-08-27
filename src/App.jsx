@@ -10,7 +10,8 @@ import CreateInvoice from './pages/CreateInvoice';
 import UpdatePassword from './pages/UpdatePassword';
 import InvoiceList  from './pages/InvoiceList';
 import Woops404 from './pages/woops404';
-
+import PendingList from './pages/PendingList';
+import Payment from './pages/Payment';
 
 function App() {
     return (
@@ -26,7 +27,9 @@ function App() {
             <Route path="/ui/createinvoice" element={<CreateInvoice />} />
             <Route path="/ui/updatepassword" element={<UpdatePassword />} />
             <Route path="/ui/invoicelist" element={<InvoiceList />} />
-            <Route path="/ui/*" element={<Woops404 />} />
+            <Route path="/ui/pendinglist" element={<PendingList />} />            
+            <Route path="/ui/*" element={<Woops404 />} />            
+            <Route path="/ui/payment" element={<Payment />} />
         </Routes>
         </div>
     )

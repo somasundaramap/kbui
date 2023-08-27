@@ -16,8 +16,7 @@ const CreateInvoice = () => {
   const [amount, setAmount] = useState("");
   const [currency, setCurrency] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  const name = Cookies.get("username");
-  const pass = Cookies.get("password");
+  const cred = Cookies.get("cred");
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -25,14 +24,14 @@ const CreateInvoice = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
-  console.log("Create Invoice: " + name, pass);
+  console.log("Create Invoice: " + cred);
 
   const URI_ACCOUNT_PG = "accounts/pagination";
   const fetchUserData = () => {
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
@@ -43,14 +42,14 @@ const CreateInvoice = () => {
       })
       .then((data) => {
         setUsers(data);
-        console.log(name, pass);
+        console.log(cred);
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(
-          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue,
+          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue + "?autoCommit=true",
           {
             method: "POST",
             headers: new Headers({
-              Authorization: "Basic " + btoa(`${name}:${pass}`),
+              Authorization: "Basic " + cred,
               Accept: "*/*",
               "Content-Type": "application/json",
               "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
@@ -81,8 +80,8 @@ const CreateInvoice = () => {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
+//    Cookies.set("username", name);
+ //   Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
