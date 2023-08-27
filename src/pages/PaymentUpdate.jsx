@@ -14,17 +14,12 @@ const PaymentUpdate = () => {
     setSelectedValue(event.target.value);
   };
   const [selectedValue, setSelectedValue] = useState("");
-  const name = Cookies.get("username");
-  const pass = Cookies.get("password");
+  const cred = Cookies.get("cred");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
-  //const name = "admin";
-  //const pass = "password";
 
   const fetchSubname = () => {
-    //-----
-    console.log("Viewinvoices: " + name, pass);
-    //console.log("In fetchSubname");
+    console.log("Viewinvoices: " + cred);
     console.log(
       URI_ACCOUNT_PG,
       process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG
@@ -32,7 +27,7 @@ const PaymentUpdate = () => {
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
@@ -54,8 +49,6 @@ const PaymentUpdate = () => {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    Cookies.set("username", name);
-    Cookies.set("password", pass);
     let a = selectedValue;
     console.log("ID" + users[a].accountId);
     Cookies.set("accId", users[a].accountId);

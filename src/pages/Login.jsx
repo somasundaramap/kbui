@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 export default function SignIn() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
+  const cred = btoa(`${name}:${pass}`);
   let navigate = useNavigate();
   let navigate_signin = useNavigate();
 
@@ -22,12 +23,12 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
   };
-  //console.log("Login: "+ name, pass);
+
   function myFunction() {
     fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
@@ -36,8 +37,7 @@ export default function SignIn() {
       .then((response) => {
         console.log(response.status);
         if (response.status !== 401) {
-          Cookies.set("username", name);
-          Cookies.set("password", pass);
+          Cookies.set("cred",cred);
           let path = "/ui/Landingpage";
           navigate(path);
         } else {
@@ -47,15 +47,12 @@ export default function SignIn() {
         }
       })
       .catch((err) => {
-        //alert("Login failed");
         let path = "/ui";
         navigate_signin(path);
       });
     return;
   }
 
-  //let navigate = useNavigate();
-  //let navigate_signin = useNavigate();
 
   return (
     <Container component="main" maxWidth="xs">

@@ -17,8 +17,7 @@ const ListInvoices = () => {
     fetchInvoices("accounts");
   }, []);
   const [invoice, setInvoice] = useState([]);
-  const name = Cookies.get("username");
-  const pass = Cookies.get("password");
+  const cred = Cookies.get("cred");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
   let URL =
@@ -31,7 +30,7 @@ const ListInvoices = () => {
     fetch(URL, {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
@@ -53,7 +52,7 @@ const ListInvoices = () => {
     fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {
       method: "GET",
       headers: new Headers({
-        Authorization: "Basic " + btoa(`${name}:${pass}`),
+        Authorization: "Basic " + cred,
         Accept: "*/*",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
@@ -96,20 +95,26 @@ const ListInvoices = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {invoice.filter(invField => invField.balance > 0).map(filteredInv  => (
-              <TableRow>
-                <TableCell align="right">{filteredInv.invoiceDate}</TableCell>
-                <TableCell align="right">
-                  <a href="#" onClick={() => htmlView(`${filteredInv.invoiceId}`)}>
-                    {filteredInv.invoiceNumber}
-                  </a>
-                </TableCell>
-                <TableCell align="right"> {filteredInv.balance.toFixed(2)}</TableCell>
-              </TableRow>
-            ))}
-
-
-          </TableBody> 
+            {invoice
+              .filter((invField) => invField.balance > 0)
+              .map((filteredInv) => (
+                <TableRow>
+                  <TableCell align="right">{filteredInv.invoiceDate}</TableCell>
+                  <TableCell align="right">
+                    <a
+                      href="#"
+                      onClick={() => htmlView(`${filteredInv.invoiceId}`)}
+                    >
+                      {filteredInv.invoiceNumber}
+                    </a>
+                  </TableCell>
+                  <TableCell align="right">
+                    {" "}
+                    {filteredInv.balance.toFixed(2)}
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </Container>
