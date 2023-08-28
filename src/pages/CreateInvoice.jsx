@@ -153,6 +153,9 @@ const CreateInvoice = () => {
               label="Amount"
               name="amount"
               autoComplete="amount"
+              value={amount}
+              helperText={(amount.trim().length !==0)? "Amount is required":"Amount is required" }
+              error={!amount}
               onChange={(e) => setAmount(e.target.value)}
             />
             <Button

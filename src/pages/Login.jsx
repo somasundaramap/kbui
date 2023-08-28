@@ -21,10 +21,11 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+    //const data = new FormData(event.currentTarget);
   };
-
+ 
   function myFunction() {
+
     fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
       headers: new Headers({
@@ -78,6 +79,8 @@ export default function SignIn() {
             name="name"
             autoComplete="name"
             autoFocus
+            value={name}
+            error={!name}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
@@ -89,7 +92,11 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={pass}
+            error={!pass}
+
             onChange={(e) => setPass(e.target.value)}
+
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

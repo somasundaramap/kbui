@@ -18,13 +18,11 @@ export default function CreateSubscriber() {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [postalCode, setPostalCode] = useState("");
-  const [currency, setCurrency] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const cred = Cookies.get("cred");
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
   };
 
   function myFunction() {
@@ -94,6 +92,9 @@ export default function CreateSubscriber() {
             name="sub_name"
             autoComplete="sub_name"
             autoFocus
+            value={subName}
+            helperText={(subName.trim().length !==0)? "Subscriber name is required":"" }
+            error={!subName}
             onChange={(e) => setSubName(e.target.value)}
           />
           <TextField
@@ -176,7 +177,6 @@ export default function CreateSubscriber() {
             name="currency"
             autoComplete="currency"
             defaultValue="USD"
-            onChange={(e) => setCurrency(e.target.value)}
           />
           <TextField
             margin="normal"
