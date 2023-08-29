@@ -6,6 +6,9 @@ import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "@mui/material";
 
 const ListInvoices = () => {
   const handleSelectChange = (event) => {
@@ -67,28 +70,29 @@ const ListInvoices = () => {
         }}
       ></Box>
       <Typography component="h1" variant="h5" align="center">
-        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <Link href="/ui/landingpage" underline="none">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        </Link>
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
         Invoices
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Subscriber
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
+        select
+        label="Select subscriber"
         value={selectedValue}
+        selectProps={{}}
         onChange={handleSelectChange}
       >
-        <option value="none">-- Select subscriber --</option>
         {users.map((key, index) => (
-          <option value={index}>{key.name}</option>
+          <MenuItem value={index}>{key.name}</MenuItem>
         ))}
-      </select>
+      </TextField>
       <Button
         type="submit"
         fullWidth

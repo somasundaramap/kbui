@@ -23,9 +23,8 @@ export default function SignIn() {
     event.preventDefault();
     //const data = new FormData(event.currentTarget);
   };
- 
-  function myFunction() {
 
+  function myFunction() {
     fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
       method: "GET",
       headers: new Headers({
@@ -38,7 +37,7 @@ export default function SignIn() {
       .then((response) => {
         console.log(response.status);
         if (response.status !== 401) {
-          Cookies.set("cred",cred);
+          Cookies.set("cred", cred);
           let path = "/ui/Landingpage";
           navigate(path);
         } else {
@@ -54,7 +53,6 @@ export default function SignIn() {
     return;
   }
 
-
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -66,7 +64,9 @@ export default function SignIn() {
         }}
       >
         <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="375" height="125" class="left" />
+          <Link href="/ui" underline="none">
+            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          </Link>
           <br></br>
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -94,9 +94,7 @@ export default function SignIn() {
             autoComplete="current-password"
             value={pass}
             error={!pass}
-
             onChange={(e) => setPass(e.target.value)}
-
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

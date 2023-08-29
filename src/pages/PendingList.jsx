@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
+import { Link } from "@mui/material";
 
 const ListInvoices = () => {
   useEffect(() => {
@@ -77,7 +78,9 @@ const ListInvoices = () => {
         }}
       ></Box>
       <Typography component="h1" variant="h5" align="center">
-        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <Link href="/ui/landingpage" underline="none">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        </Link>
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">

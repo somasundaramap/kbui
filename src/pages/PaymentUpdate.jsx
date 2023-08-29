@@ -6,8 +6,9 @@ import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
-
-// const [selectedValue, setSelectedValue] = useState("");
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { Link } from "@mui/material";
 
 const PaymentUpdate = () => {
   const handleSelectChange = (event) => {
@@ -75,21 +76,20 @@ const PaymentUpdate = () => {
         Payment update
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Subscriber
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
         value={selectedValue}
         onChange={handleSelectChange}
+        label="Select subscriber"
+        select
+        selectProps={{}}
       >
-        <option value="none">-- Select subscriber --</option>
         {users.map((key, index) => (
-          <option value={index}>{key.name}</option>
+          <MenuItem value={index}>{key.name}</MenuItem>
         ))}
-      </select>
+      </TextField>
       <Button
         type="submit"
         fullWidth

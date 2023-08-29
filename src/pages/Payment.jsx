@@ -6,6 +6,9 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { Link } from "@mui/material";
 
 const Payment = () => {
   const handleSelectChange = (event) => {
@@ -87,8 +90,6 @@ const Payment = () => {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    //Cookies.set("username", name);
-    //Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -103,30 +104,33 @@ const Payment = () => {
         }}
       ></Box>
       <Typography component="h1" variant="h5" align="center">
-        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <Link href="/ui/landingpage" underline="none">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        </Link>
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
         Payment update for {subName}
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Invoice
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
         value={selectedValue}
         onChange={handleSelectChange}
+        label="Select Invoice"
+        selectProps={{}}
+        select
       >
-        <option value="none">-- Select Invoice --</option>
-        {invoice.map((key, index) => (
-          <option value={index}>
-            {key.invoiceNumber} - $ {key.balance.toFixed(2)}
-          </option>
-        ))}
-      </select>
+        {invoice
+          .filter((inv) => inv.balance > 0)
+          .map((key, index) => (
+            <MenuItem value={index}>
+              {key.invoiceNumber} - $ {key.balance.toFixed(2)}
+            </MenuItem>
+          ))}
+      </TextField>
       <Button
         type="submit"
         fullWidth

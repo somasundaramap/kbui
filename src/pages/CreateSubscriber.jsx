@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
+import { Link } from "@mui/material";
 
 export default function CreateSubscriber() {
   const [subName, setSubName] = useState("");
@@ -76,7 +77,9 @@ export default function CreateSubscriber() {
         }}
       >
         <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <Link href="/ui/landingpage" underline="none">
+            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          </Link>
           <br></br>
         </Typography>
         <Typography component="h1" variant="h5">
@@ -93,7 +96,9 @@ export default function CreateSubscriber() {
             autoComplete="sub_name"
             autoFocus
             value={subName}
-            helperText={(subName.trim().length !==0)? "Subscriber name is required":"" }
+            helperText={
+              subName.trim().length !== 0 ? "Subscriber name is required" : ""
+            }
             error={!subName}
             onChange={(e) => setSubName(e.target.value)}
           />

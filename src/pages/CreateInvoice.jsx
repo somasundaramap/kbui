@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "@mui/material";
 
 const CreateInvoice = () => {
   const [users, setUsers] = useState([]);
@@ -45,7 +47,10 @@ const CreateInvoice = () => {
         console.log(cred);
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(
-          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue + "?autoCommit=true",
+          process.env.REACT_APP_BASE_URL +
+            URI_INVOICE_GEN +
+            selectedValue +
+            "?autoCommit=true",
           {
             method: "POST",
             headers: new Headers({
@@ -80,8 +85,8 @@ const CreateInvoice = () => {
 
   let navigate = useNavigate();
   const routeChange = () => {
-//    Cookies.set("username", name);
- //   Cookies.set("password", pass);
+    //    Cookies.set("username", name);
+    //   Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -100,7 +105,9 @@ const CreateInvoice = () => {
           }}
         >
           <Typography component="h1" variant="h5" align="center">
-            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+            <Link href="/ui/landingpage" underline="none">
+              <img src={logo} alt="Logo" width="250" height="83" class="left" />
+            </Link>
             <br></br>
           </Typography>
           <Typography component="h1" variant="h5" align="center">
@@ -113,17 +120,20 @@ const CreateInvoice = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <select
+            <TextField
+              label="Select subscriber"
               margin="normal"
               fullWidth
               value={selectedValue}
               onChange={handleSelectChange}
+              select
+              selectProps={{}}
             >
-              <option value="none">-- Select subscriber --</option>
               {users.map((option) => (
-                <option value={option.accountId}>{option.name}</option>
+                <MenuItem value={option.accountId}>{option.name}</MenuItem>
               ))}
-            </select>
+            </TextField>
+
             <TextField
               margin="normal"
               required
@@ -154,7 +164,11 @@ const CreateInvoice = () => {
               name="amount"
               autoComplete="amount"
               value={amount}
-              helperText={(amount.trim().length !==0)? "Amount is required":"Amount is required" }
+              helperText={
+                amount.trim().length !== 0
+                  ? "Amount is required"
+                  : "Amount is required"
+              }
               error={!amount}
               onChange={(e) => setAmount(e.target.value)}
             />

@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
+import { Link } from "@mui/material";
 
 const styles = (theme) => ({
   menuItem: {
@@ -92,7 +93,9 @@ function ListItemComposition(props) {
         }}
       >
         <Typography component="h1" variant="h5" align="center">
-          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          <Link href="/ui/landingpage" underline="none">
+            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+          </Link>
           <br></br>
         </Typography>
         <Paper style={{ width: "350px" }}>
