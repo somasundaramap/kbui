@@ -14,7 +14,7 @@ const Payment = () => {
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("index");
   useEffect(() => {
     fetchInvoices("accounts");
   }, []);
@@ -42,7 +42,7 @@ const Payment = () => {
         return response.json();
       })
       .then((data) => {
-        setInvoice(data);
+        setInvoice(data.filter(invf => invf.balance > 0));
       });
   };
 
@@ -56,7 +56,10 @@ const Payment = () => {
         " Balance " +
         invoice[selectedValue].balance +
         " Uname " +
-        cred
+        cred +
+        " SelectedValue " +
+        selectedValue +
+        " Index "
     );
 
     const URI_INV = "invoices/";
@@ -86,6 +89,7 @@ const Payment = () => {
       .then(() => alert("Payment has been updated"))
       .catch(() => console.log("Error"));
     return routeChange();
+    
   }
 
   let navigate = useNavigate();
@@ -117,19 +121,19 @@ const Payment = () => {
       <TextField
         margin="normal"
         fullWidth
-        value={selectedValue}
+     //   value={selectedValue}
         onChange={handleSelectChange}
-        label="Select Invoice"
-        selectProps={{}}
+        label="Select invoice"
         select
+        selectProps={{}}
       >
-        {invoice
-          .filter((inv) => inv.balance > 0)
-          .map((key, index) => (
-            <MenuItem value={index}>
-              {key.invoiceNumber} - $ {key.balance.toFixed(2)}
-            </MenuItem>
-          ))}
+ 
+        {invoice.filter(invField => invField.balance > 0) 
+        .map((key, index) => (
+          <MenuItem value={index}>
+            {key.invoiceNumber} - ${key.balance.toFixed(2)}
+          </MenuItem>
+        ))}
       </TextField>
       <Button
         type="submit"

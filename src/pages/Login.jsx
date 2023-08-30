@@ -11,6 +11,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
+
+
 
 export default function SignIn() {
   const [name, setName] = useState("");
@@ -21,7 +25,6 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //const data = new FormData(event.currentTarget);
   };
 
   function myFunction() {
@@ -40,13 +43,11 @@ export default function SignIn() {
           Cookies.set("cred", cred);
           let path = "/ui/Landingpage";
           navigate(path);
-        } else {
-          alert("Login failed");
-          let path = "/ui";
-          navigate_signin(path);
-        }
+        } 
       })
       .catch((err) => {
+        alert("Login failed");
+      // toast.error("Login failed");
         let path = "/ui";
         navigate_signin(path);
       });
@@ -109,6 +110,7 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+          
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
@@ -122,7 +124,9 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </Box>
+        <ToastContainer />
       </Box>
-    </Container>
+     </Container>
+
   );
 }
