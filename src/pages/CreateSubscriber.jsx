@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function CreateSubscriber() {
   const [subName, setSubName] = useState("");
@@ -54,9 +57,16 @@ export default function CreateSubscriber() {
         currency: "USD",
       }),
     })
-      .then((res) => res.json()) // no error is thrown
-      .then(() => alert("Subscriber created successfully"))
-      .catch(() => console.log("Error"));
+      .then((res) => {
+        if (!res.ok) {
+          throw Error("Subscriber creation failed");
+        }
+//        res.json();
+        toast.success("Subscriber created");
+      }) // no error is thrown
+      .catch((err) => {
+        toast.error(err);
+      });
     return routeChange();
   }
 
@@ -215,6 +225,7 @@ export default function CreateSubscriber() {
           <Grid container></Grid>
         </Box>
       </Box>
+      <ToastContainer />
     </Container>
   );
 }

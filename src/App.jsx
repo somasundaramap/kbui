@@ -12,6 +12,8 @@ import InvoiceList  from './pages/InvoiceList';
 import Woops404 from './pages/woops404';
 import PendingList from './pages/PendingList';
 import Payment from './pages/Payment';
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (
@@ -31,6 +33,7 @@ function App() {
             <Route path="/ui/*" element={<Woops404 />} />            
             <Route path="/ui/payment" element={<Payment />} />
         </Routes>
+        <ToastContainer />
         </div>
     )
 }

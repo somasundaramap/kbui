@@ -16,19 +16,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 
+
+
 export default function SignIn() {
+  
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const cred = btoa(`${name}:${pass}`);
   let navigate = useNavigate();
   let navigate_signin = useNavigate();
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
 
   function myFunction() {
-    fetch(process.env.REACT_APP_BASE_URL + "invoices/pagination", {
+    
+      fetch(process.env.REACT_APP_BASE_URL + "security/subject", {
       method: "GET",
       headers: new Headers({
         Authorization: "Basic " + cred,
@@ -38,19 +43,16 @@ export default function SignIn() {
       }),
     })
       .then((response) => {
-        console.log(response.status);
-        if (response.status !== 401) {
-          Cookies.set("cred", cred);
-          let path = "/ui/Landingpage";
-          navigate(path);
-        } 
-      })
+        if(!response.ok) {
+          throw Error("Login Failed");
+        }
+          Cookies.set("cred",cred);
+          navigate("/ui/landingpage")}
+         )
       .catch((err) => {
-        alert("Login failed");
-      // toast.error("Login failed");
-        let path = "/ui";
-        navigate_signin(path);
-      });
+      toast.error(err);
+      navigate("/ui");
+    });
     return;
   }
 
@@ -64,6 +66,7 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
+
         <Typography component="h1" variant="h5" align="center">
           <Link href="/ui" underline="none">
             <img src={logo} alt="Logo" width="250" height="83" class="left" />
@@ -124,8 +127,8 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </Box>
-        <ToastContainer />
       </Box>
+      <ToastContainer />
      </Container>
 
   );
