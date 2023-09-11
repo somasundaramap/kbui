@@ -9,6 +9,7 @@ import logo from "./invoismart-logo.png";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const ViewPending = () => {
   const handleSelectChange = (event) => {
@@ -18,6 +19,7 @@ const ViewPending = () => {
   const cred = Cookies.get("cred");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
+  const { t } = useTranslation();
 
   const fetchSubname = () => {
     //-----
@@ -76,7 +78,7 @@ const ViewPending = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Invoices
+        {t('invoices')}
       </Typography>
       <br></br> <br></br> <br></br>
       <nobr></nobr>
@@ -84,7 +86,7 @@ const ViewPending = () => {
         margin="normal"
         fullWidth
         select
-        label="Select subscriber"
+        label={t('selectsubscriber')}
         value={selectedValue}
         selectProps={{}}
         onChange={handleSelectChange}
@@ -100,7 +102,7 @@ const ViewPending = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={routeChange}
       >
-        Submit
+        {t('submit')}
       </Button>
     </Container>
   );

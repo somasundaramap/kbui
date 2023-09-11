@@ -13,7 +13,7 @@ import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
-
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -25,7 +25,7 @@ export default function SignIn() {
   const cred = btoa(`${name}:${pass}`);
   let navigate = useNavigate();
   let navigate_signin = useNavigate();
-  
+  const { t } = useTranslation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -79,7 +79,7 @@ export default function SignIn() {
             required
             fullWidth
             id="name"
-            label="Username"
+            label={t('username')}
             name="name"
             autoComplete="name"
             autoFocus
@@ -92,7 +92,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={t('password')}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -102,7 +102,7 @@ export default function SignIn() {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label={t('rememberme')}
           />
           <Button
             type="submit"
@@ -111,18 +111,18 @@ export default function SignIn() {
             sx={{ mt: 3, mb: 1 }}
             onClick={myFunction}
           >
-            Sign In
+            {t('signin')} 
           </Button>
           
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                Forgot password?
+                {t('forgotpassword?')}
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
+                {t('donthaveanaccount?signup')}
               </Link>
             </Grid>
           </Grid>

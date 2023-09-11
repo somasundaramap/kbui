@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const ListInvoices = () => {
   useEffect(() => {
@@ -21,6 +22,8 @@ const ListInvoices = () => {
   const cred = Cookies.get("cred");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
+  const { t } = useTranslation();
+
   let URL =
     process.env.REACT_APP_BASE_URL +
     "accounts/" +
@@ -84,17 +87,17 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Invoices - Payment pending
+        {t('Invoicespaymentpending')}
         <br></br>
-        <p>Subscriber: {subName}</p>
+        <p>{t('subscriber')}: {subName}</p>
       </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">Date </TableCell>
-              <TableCell align="right">Invoice number</TableCell>
-              <TableCell align="right">Balance($)</TableCell>
+              <TableCell align="right">{t('date')} </TableCell>
+              <TableCell align="right">{t('invoicenumber')}</TableCell>
+              <TableCell align="right">{t('balance')}($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

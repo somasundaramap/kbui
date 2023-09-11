@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const Payment = () => {
   const handleSelectChange = (event) => {
@@ -22,6 +23,7 @@ const Payment = () => {
   const cred = Cookies.get("cred");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
+  const { t } = useTranslation();
   let URL =
     process.env.REACT_APP_BASE_URL +
     "accounts/" +
@@ -86,7 +88,7 @@ const Payment = () => {
       }
     )
       .then((res) => res.json()) // no error is thrown
-      .then(() => alert("Payment has been updated"))
+      .then(() => alert(t('paymenthasbeenupdated')))
       .catch(() => console.log("Error"));
     return routeChange();
     
@@ -114,7 +116,7 @@ const Payment = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Payment update for {subName}
+        {t('paymentupdtefor')} {subName}
       </Typography>
       <br></br> <br></br> <br></br>
       <nobr></nobr>
@@ -123,7 +125,7 @@ const Payment = () => {
         fullWidth
      //   value={selectedValue}
         onChange={handleSelectChange}
-        label="Select invoice"
+        label={t('selectinvoice')}
         select
         selectProps={{}}
       >
@@ -142,7 +144,7 @@ const Payment = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={UpdatePmt}
       >
-        Confirm Payment
+        {t('confirmpayment')}
       </Button>
     </Container>
   );

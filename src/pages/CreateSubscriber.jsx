@@ -11,7 +11,7 @@ import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
-
+import { useTranslation } from 'react-i18next';
 
 export default function CreateSubscriber() {
   const [subName, setSubName] = useState("");
@@ -25,6 +25,7 @@ export default function CreateSubscriber() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const cred = Cookies.get("cred");
+  const { t } = useTranslation();
   const handleSubmit = (event) => {
     event.preventDefault();
   };
@@ -59,10 +60,10 @@ export default function CreateSubscriber() {
     })
       .then((res) => {
         if (!res.ok) {
-          throw Error("Subscriber creation failed");
+          throw Error(t('signoutsuccessfully'));
         }
 //        res.json();
-        toast.success("Subscriber created");
+        toast.success((t('subscribercreated')));
       }) // no error is thrown
       .catch((err) => {
         toast.error(err);
@@ -101,7 +102,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="sub_name"
-            label="Subscriber name"
+            label={t('subscribername')}
             name="sub_name"
             autoComplete="sub_name"
             autoFocus
@@ -117,7 +118,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="company_name"
-            label="Company name"
+            label={t('copmpanyname')}
             name="company_name"
             autoComplete="company_name"
             onChange={(e) => setCompanyName(e.target.value)}
@@ -127,7 +128,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="address1"
-            label="Address 1"
+            label={t('address1')}
             name="address1"
             autoComplete="address1"
             onChange={(e) => setAddr1(e.target.value)}
@@ -137,7 +138,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="address2"
-            label="Address 2"
+            label={t('address2')}
             name="address2"
             autoComplete="address2"
             onChange={(e) => setAddr2(e.target.value)}
@@ -147,7 +148,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="city"
-            label="City"
+            label={t('city')}
             name="city"
             autoComplete="city"
             onChange={(e) => setCity(e.target.value)}
@@ -157,7 +158,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="state"
-            label="State"
+            label={t('state')}
             name="state"
             autoComplete="state"
             onChange={(e) => setState(e.target.value)}
@@ -167,7 +168,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="country"
-            label="Country"
+            label={t('country')}
             name="country"
             autoComplete="country"
             defaultValue="USA"
@@ -178,7 +179,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="postalcode"
-            label="Postal code"
+            label={t('postalcode')}
             name="postalcode"
             autoComplete="postalcode"
             onChange={(e) => setPostalCode(e.target.value)}
@@ -188,7 +189,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="currency"
-            label="Currency"
+            label={t('currency')}
             name="currency"
             autoComplete="currency"
             defaultValue="USD"
@@ -198,7 +199,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="phone"
-            label="Phone #"
+            label={t('phonenumber')}
             name="phone"
             autoComplete="phone"
             onChange={(e) => setPhone(e.target.value)}
@@ -208,7 +209,7 @@ export default function CreateSubscriber() {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={t('email')}
             name="email"
             autoComplete="email"
             onChange={(e) => setEmail(e.target.value)}
@@ -220,7 +221,7 @@ export default function CreateSubscriber() {
             sx={{ mt: 3, mb: 2 }}
             onClick={myFunction}
           >
-            Create subscriber
+            {t('createsubscriber')}
           </Button>
           <Grid container></Grid>
         </Box>
