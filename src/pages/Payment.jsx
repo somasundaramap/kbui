@@ -6,12 +6,16 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const Payment = () => {
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("index");
   useEffect(() => {
     fetchInvoices("accounts");
   }, []);
@@ -19,6 +23,7 @@ const Payment = () => {
   const cred = Cookies.get("cred");
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
+  const { t } = useTranslation();
   let URL =
     process.env.REACT_APP_BASE_URL +
     "accounts/" +
@@ -39,7 +44,7 @@ const Payment = () => {
         return response.json();
       })
       .then((data) => {
-        setInvoice(data);
+        setInvoice(data.filter(invf => invf.balance > 0));
       });
   };
 
@@ -53,7 +58,10 @@ const Payment = () => {
         " Balance " +
         invoice[selectedValue].balance +
         " Uname " +
-        cred
+        cred +
+        " SelectedValue " +
+        selectedValue +
+        " Index "
     );
 
     const URI_INV = "invoices/";
@@ -80,15 +88,14 @@ const Payment = () => {
       }
     )
       .then((res) => res.json()) // no error is thrown
-      .then(() => alert("Payment has been updated"))
+      .then(() => alert(t('paymenthasbeenupdated')))
       .catch(() => console.log("Error"));
     return routeChange();
+    
   }
 
   let navigate = useNavigate();
   const routeChange = () => {
-    //Cookies.set("username", name);
-    //Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -103,30 +110,33 @@ const Payment = () => {
         }}
       ></Box>
       <Typography component="h1" variant="h5" align="center">
-        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <Link href="/ui/landingpage" underline="none">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        </Link>
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Payment update for {subName}
+        {t('paymentupdtefor')} {subName}
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Invoice
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
-        value={selectedValue}
+     //   value={selectedValue}
         onChange={handleSelectChange}
+        label={t('selectinvoice')}
+        select
+        selectProps={{}}
       >
-        <option value="none">-- Select Invoice --</option>
-        {invoice.map((key, index) => (
-          <option value={index}>
-            {key.invoiceNumber} - $ {key.balance.toFixed(2)}
-          </option>
+ 
+        {invoice.filter(invField => invField.balance > 0) 
+        .map((key, index) => (
+          <MenuItem value={index}>
+            {key.invoiceNumber} - ${key.balance.toFixed(2)}
+          </MenuItem>
         ))}
-      </select>
+      </TextField>
       <Button
         type="submit"
         fullWidth
@@ -134,7 +144,7 @@ const Payment = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={UpdatePmt}
       >
-        Confirm Payment
+        {t('confirmpayment')}
       </Button>
     </Container>
   );

@@ -8,6 +8,9 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
+import MenuItem from "@mui/material/MenuItem";
+import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const CreateInvoice = () => {
   const [users, setUsers] = useState([]);
@@ -17,6 +20,8 @@ const CreateInvoice = () => {
   const [currency, setCurrency] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const cred = Cookies.get("cred");
+  const { t } = useTranslation();
+  
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -45,7 +50,10 @@ const CreateInvoice = () => {
         console.log(cred);
         const URI_INVOICE_GEN = "invoices/charges/";
         fetch(
-          process.env.REACT_APP_BASE_URL + URI_INVOICE_GEN + selectedValue + "?autoCommit=true",
+          process.env.REACT_APP_BASE_URL +
+            URI_INVOICE_GEN +
+            selectedValue +
+            "?autoCommit=true",
           {
             method: "POST",
             headers: new Headers({
@@ -74,14 +82,29 @@ const CreateInvoice = () => {
           .catch(() => console.log("Error"));
       });
   };
+
+
+/* .then((res) => {
+        if (!res.ok) {
+          throw Error("Subscriber creation failed");
+        }
+        toast.success("Subscriber created");
+      }) // no error is thrown
+      .catch((err) => {
+        toast.error(err);
+      });
+    return routeChange();
+  }*/
+
+
   useEffect(() => {
     fetchUserData();
   }, []);
 
   let navigate = useNavigate();
   const routeChange = () => {
-//    Cookies.set("username", name);
- //   Cookies.set("password", pass);
+    //    Cookies.set("username", name);
+    //   Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -100,11 +123,13 @@ const CreateInvoice = () => {
           }}
         >
           <Typography component="h1" variant="h5" align="center">
-            <img src={logo} alt="Logo" width="250" height="83" class="left" />
+            <Link href="/ui/landingpage" underline="none">
+              <img src={logo} alt="Logo" width="250" height="83" class="left" />
+            </Link>
             <br></br>
           </Typography>
           <Typography component="h1" variant="h5" align="center">
-            Generate invoice
+          {t('generateinvoice')} 
           </Typography>
           <br></br> <br></br>
           <Box
@@ -113,23 +138,26 @@ const CreateInvoice = () => {
             noValidate
             sx={{ mt: 1 }}
           >
-            <select
+            <TextField
+              label= {t('selectsubscriber')} 
               margin="normal"
               fullWidth
               value={selectedValue}
               onChange={handleSelectChange}
+              select
+              selectProps={{}}
             >
-              <option value="none">-- Select subscriber --</option>
               {users.map((option) => (
-                <option value={option.accountId}>{option.name}</option>
+                <MenuItem value={option.accountId}>{option.name}</MenuItem>
               ))}
-            </select>
+            </TextField>
+
             <TextField
               margin="normal"
               required
               fullWidth
               id="desc"
-              label="Description"
+              label={t('description')} 
               name="desc"
               autoComplete="desc"
               autoFocus
@@ -140,7 +168,7 @@ const CreateInvoice = () => {
               required
               fullWidth
               id="plan_name"
-              label="Reason "
+              label={t('reason')}
               name="reason"
               autoComplete="reason"
               onChange={(e) => setReason(e.target.value)}
@@ -150,11 +178,15 @@ const CreateInvoice = () => {
               required
               fullWidth
               id="amount"
-              label="Amount"
+              label={t('amount')} 
               name="amount"
               autoComplete="amount"
               value={amount}
-              helperText={(amount.trim().length !==0)? "Amount is required":"Amount is required" }
+              helperText={
+                amount.trim().length !==0 
+                  ? (t('amountisrequired'))
+                  : (t('amountisrequired'))
+              }
               error={!amount}
               onChange={(e) => setAmount(e.target.value)}
             />
@@ -165,7 +197,7 @@ const CreateInvoice = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={fetchUserData}
             >
-              Generate invoice
+             {t('generateinvoice')}  
             </Button>
             <Grid container></Grid>
           </Box>

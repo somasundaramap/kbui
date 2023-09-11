@@ -6,8 +6,10 @@ import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
-
-// const [selectedValue, setSelectedValue] = useState("");
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const PaymentUpdate = () => {
   const handleSelectChange = (event) => {
@@ -17,6 +19,7 @@ const PaymentUpdate = () => {
   const cred = Cookies.get("cred");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
+  const { t } = useTranslation();
 
   const fetchSubname = () => {
     console.log("Viewinvoices: " + cred);
@@ -72,24 +75,23 @@ const PaymentUpdate = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Payment update
+        {t('paymentupdate')}
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Subscriber
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
         value={selectedValue}
         onChange={handleSelectChange}
+        label={t('selectsubscriber')}
+        select
+        selectProps={{}}
       >
-        <option value="none">-- Select subscriber --</option>
         {users.map((key, index) => (
-          <option value={index}>{key.name}</option>
+          <MenuItem value={index}>{key.name}</MenuItem>
         ))}
-      </select>
+      </TextField>
       <Button
         type="submit"
         fullWidth
@@ -97,7 +99,7 @@ const PaymentUpdate = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={routeChange}
       >
-        Submit
+        {t('submit')}
       </Button>
     </Container>
   );

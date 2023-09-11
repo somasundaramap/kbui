@@ -6,6 +6,10 @@ import Cookies from "js-cookie";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { Link } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 const ViewPending = () => {
   const handleSelectChange = (event) => {
@@ -15,6 +19,7 @@ const ViewPending = () => {
   const cred = Cookies.get("cred");
   const [users, setUsers] = useState([]);
   const URI_ACCOUNT_PG = "accounts/pagination";
+  const { t } = useTranslation();
 
   const fetchSubname = () => {
     //-----
@@ -67,28 +72,29 @@ const ViewPending = () => {
         }}
       ></Box>
       <Typography component="h1" variant="h5" align="center">
-        <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        <Link href="/ui/landingpage" underline="none">
+          <img src={logo} alt="Logo" width="250" height="83" class="left" />
+        </Link>
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        Invoices
+        {t('invoices')}
       </Typography>
       <br></br> <br></br> <br></br>
-      <Typography inline variant="body5" align="left" noWrap>
-        Select Subscriber
-      </Typography>
       <nobr></nobr>
-      <select
+      <TextField
         margin="normal"
         fullWidth
+        select
+        label={t('selectsubscriber')}
         value={selectedValue}
+        selectProps={{}}
         onChange={handleSelectChange}
       >
-        <option value="none">-- Select subscriber --</option>
         {users.map((key, index) => (
-          <option value={index}>{key.name}</option>
+          <MenuItem value={index}>{key.name}</MenuItem>
         ))}
-      </select>
+      </TextField>
       <Button
         type="submit"
         fullWidth
@@ -96,7 +102,7 @@ const ViewPending = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={routeChange}
       >
-        Submit
+        {t('submit')}
       </Button>
     </Container>
   );
