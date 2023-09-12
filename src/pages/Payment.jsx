@@ -9,7 +9,9 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { Link } from "@mui/material";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { toast, ToastContainer } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css";
 
 const Payment = () => {
   const handleSelectChange = (event) => {
@@ -44,7 +46,7 @@ const Payment = () => {
         return response.json();
       })
       .then((data) => {
-        setInvoice(data.filter(invf => invf.balance > 0));
+        setInvoice(data.filter((invf) => invf.balance > 0));
       });
   };
 
@@ -87,11 +89,17 @@ const Payment = () => {
         }),
       }
     )
-      .then((res) => res.json()) // no error is thrown
-      .then(() => alert(t('paymenthasbeenupdated')))
-      .catch(() => console.log("Error"));
-    return routeChange();
-    
+
+    .then((res) => {
+      if (!res.ok) {
+        throw Error(t('Payment failed'));
+      }
+      toast.success((t('paymenthasbeenupdated')));
+    }) // no error is thrown
+    .catch((err) => {
+      toast.error(err);
+    });
+  return routeChange();
   }
 
   let navigate = useNavigate();
@@ -116,26 +124,26 @@ const Payment = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        {t('paymentupdtefor')} {subName}
+        {t("paymentupdtefor")} {subName}
       </Typography>
       <br></br> <br></br> <br></br>
       <nobr></nobr>
       <TextField
         margin="normal"
         fullWidth
-     //   value={selectedValue}
+        //   value={selectedValue}
         onChange={handleSelectChange}
-        label={t('selectinvoice')}
+        label={t("selectinvoice")}
         select
         selectProps={{}}
       >
- 
-        {invoice.filter(invField => invField.balance > 0) 
-        .map((key, index) => (
-          <MenuItem value={index}>
-            {key.invoiceNumber} - ${key.balance.toFixed(2)}
-          </MenuItem>
-        ))}
+        {invoice
+          .filter((invField) => invField.balance > 0)
+          .map((key, index) => (
+            <MenuItem value={index}>
+              {key.invoiceNumber} - ${key.balance.toFixed(2)}
+            </MenuItem>
+          ))}
       </TextField>
       <Button
         type="submit"
@@ -144,7 +152,7 @@ const Payment = () => {
         sx={{ mt: 3, mb: 1 }}
         onClick={UpdatePmt}
       >
-        {t('confirmpayment')}
+        {t("confirmpayment")}
       </Button>
     </Container>
   );

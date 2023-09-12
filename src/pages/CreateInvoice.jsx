@@ -10,7 +10,9 @@ import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "@mui/material";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateInvoice = () => {
   const [users, setUsers] = useState([]);
@@ -21,7 +23,7 @@ const CreateInvoice = () => {
   const [selectedValue, setSelectedValue] = useState("");
   const cred = Cookies.get("cred");
   const { t } = useTranslation();
-  
+
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -75,27 +77,16 @@ const CreateInvoice = () => {
             ]),
           }
         )
-          .then((res) => res.json()) // no error is thrown
-          .then(() => {
+          .then((res) => {
+            if (!res.ok) {
+              throw Error(t("invoicegenerationfailed"));
+            }
+            toast.success(t("invoicegenerated"));
             routeChange();
           }) //
-          .catch(() => console.log("Error"));
+          .catch((err) => console.log(err));
       });
   };
-
-
-/* .then((res) => {
-        if (!res.ok) {
-          throw Error("Subscriber creation failed");
-        }
-        toast.success("Subscriber created");
-      }) // no error is thrown
-      .catch((err) => {
-        toast.error(err);
-      });
-    return routeChange();
-  }*/
-
 
   useEffect(() => {
     fetchUserData();
@@ -103,8 +94,6 @@ const CreateInvoice = () => {
 
   let navigate = useNavigate();
   const routeChange = () => {
-    //    Cookies.set("username", name);
-    //   Cookies.set("password", pass);
     let path = "/ui/Landingpage";
     navigate(path);
   };
@@ -119,7 +108,6 @@ const CreateInvoice = () => {
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
-            //  alignItems: "center",
           }}
         >
           <Typography component="h1" variant="h5" align="center">
@@ -129,7 +117,7 @@ const CreateInvoice = () => {
             <br></br>
           </Typography>
           <Typography component="h1" variant="h5" align="center">
-          {t('generateinvoice')} 
+            {t("generateinvoice")}
           </Typography>
           <br></br> <br></br>
           <Box
@@ -139,7 +127,7 @@ const CreateInvoice = () => {
             sx={{ mt: 1 }}
           >
             <TextField
-              label= {t('selectsubscriber')} 
+              label={t("selectsubscriber")}
               margin="normal"
               fullWidth
               value={selectedValue}
@@ -157,7 +145,7 @@ const CreateInvoice = () => {
               required
               fullWidth
               id="desc"
-              label={t('description')} 
+              label={t("description")}
               name="desc"
               autoComplete="desc"
               autoFocus
@@ -168,7 +156,7 @@ const CreateInvoice = () => {
               required
               fullWidth
               id="plan_name"
-              label={t('reason')}
+              label={t("reason")}
               name="reason"
               autoComplete="reason"
               onChange={(e) => setReason(e.target.value)}
@@ -178,14 +166,14 @@ const CreateInvoice = () => {
               required
               fullWidth
               id="amount"
-              label={t('amount')} 
+              label={t("amount")}
               name="amount"
               autoComplete="amount"
               value={amount}
               helperText={
-                amount.trim().length !==0 
-                  ? (t('amountisrequired'))
-                  : (t('amountisrequired'))
+                amount.trim().length !== 0
+                  ? t("amountisrequired")
+                  : t("amountisrequired")
               }
               error={!amount}
               onChange={(e) => setAmount(e.target.value)}
@@ -197,7 +185,7 @@ const CreateInvoice = () => {
               sx={{ mt: 3, mb: 2 }}
               onClick={fetchUserData}
             >
-             {t('generateinvoice')}  
+              {t("generateinvoice")}
             </Button>
             <Grid container></Grid>
           </Box>
