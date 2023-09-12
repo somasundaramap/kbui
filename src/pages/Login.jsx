@@ -11,15 +11,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
-import { toast, ToastContainer } from "react-toastify"; 
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from 'react-i18next';
-
-
-
+import { useTranslation } from "react-i18next";
 
 export default function SignIn() {
-  
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const cred = btoa(`${name}:${pass}`);
@@ -32,27 +28,23 @@ export default function SignIn() {
   };
 
   function myFunction() {
-    
-      fetch(process.env.REACT_APP_BASE_URL + "security/subject", {
+    fetch(process.env.REACT_APP_BASE_URL + "security/subject", {
       method: "GET",
       headers: new Headers({
         Authorization: "Basic " + cred,
-        Accept: "*/*",
+        Accept: "application/json",
         "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
         "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
       }),
     })
-      .then((response) => {
-        if(!response.ok) {
-          throw Error("Login Failed");
-        }
-          Cookies.set("cred",cred);
-          navigate("/ui/landingpage")}
-         )
+      .then((res) => {
+            Cookies.set("cred",cred);
+          navigate("/ui/landingpage")
+      })
       .catch((err) => {
-      toast.error(err);
-      navigate("/ui");
-    });
+        toast.error("failed");
+        navigate("/ui")
+      });
     return;
   }
 
@@ -66,7 +58,6 @@ export default function SignIn() {
           alignItems: "center",
         }}
       >
-
         <Typography component="h1" variant="h5" align="center">
           <Link href="/ui" underline="none">
             <img src={logo} alt="Logo" width="250" height="83" class="left" />
@@ -79,7 +70,7 @@ export default function SignIn() {
             required
             fullWidth
             id="name"
-            label={t('username')}
+            label={t("username")}
             name="name"
             autoComplete="name"
             autoFocus
@@ -92,7 +83,7 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
-            label={t('password')}
+            label={t("password")}
             type="password"
             id="password"
             autoComplete="current-password"
@@ -102,7 +93,7 @@ export default function SignIn() {
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label={t('rememberme')}
+            label={t("rememberme")}
           />
           <Button
             type="submit"
@@ -111,25 +102,24 @@ export default function SignIn() {
             sx={{ mt: 3, mb: 1 }}
             onClick={myFunction}
           >
-            {t('signin')} 
+            {t("signin")}
           </Button>
-          
+
           <Grid container>
             <Grid item xs>
               <Link href="#" variant="body2">
-                {t('forgotpassword?')}
+                {t("forgotpassword?")}
               </Link>
             </Grid>
             <Grid item>
               <Link href="#" variant="body2">
-                {t('donthaveanaccount?signup')}
+                {t("donthaveanaccount?signup")}
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Box>
       <ToastContainer />
-     </Container>
-
+    </Container>
   );
 }

@@ -44,5 +44,6 @@
     "amountisrequired":"Se requiere cantidad",
     "Subscribercreationfailed":"Falló la creación del suscriptor",
     "subscribercreated":"Suscriptor creado",
-    "invoices":"Facturas"
+    "invoices":"Facturas",
+    "invoicegenerationfailed":"Falló la generación de factura"
   }

@@ -60,7 +60,7 @@ export default function CreateSubscriber() {
     })
       .then((res) => {
         if (!res.ok) {
-          throw Error(t('signoutsuccessfully'));
+          throw Error(t('creationfailed'));
         }
 //        res.json();
         toast.success((t('subscribercreated')));

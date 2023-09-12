@@ -44,5 +44,6 @@
     "amountisrequired":"Amount is required",
     "Subscribercreationfailed":"Subscriber creation failed",
     "subscribercreated":"Subscriber created",
-    "invoices":"Invoices"
+    "invoices":"Invoices",
+    "invoicegenerationfailed":"Invoice generation failed"
   }
