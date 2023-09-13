@@ -14,14 +14,17 @@ import Cookies from "js-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 export default function SignIn() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const cred = btoa(`${name}:${pass}`);
   let navigate = useNavigate();
-  let navigate_signin = useNavigate();
   const { t } = useTranslation();
+  const changeLanguage = (Lng) => {
+    i18n.changeLanguage(Lng);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,13 +41,17 @@ export default function SignIn() {
       }),
     })
       .then((res) => {
-            Cookies.set("cred",cred);
-          navigate("/ui/landingpage")
+        if (!res.ok) {
+          throw Error("Failed");
+        } else {
+          Cookies.set("cred", cred);
+          navigate("/ui/landingpage");
+        }
       })
       .catch((err) => {
-        toast.error("failed");
-        navigate("/ui")
+        toast.error("Login failed");
       });
+
     return;
   }
 
@@ -63,7 +70,19 @@ export default function SignIn() {
             <img src={logo} alt="Logo" width="250" height="83" class="left" />
           </Link>
           <br></br>
+          <br></br>
         </Typography>
+
+        <div onChange={(e) => changeLanguage(e.target.value)}>
+          Language:
+          <input type="radio" name="english" value="en" />
+          English
+          <input type="radio" defaultChecked name="english" value="es" />
+          Spanish
+          <br></br>
+          <br></br>
+        </div>
+
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -91,6 +110,7 @@ export default function SignIn() {
             error={!pass}
             onChange={(e) => setPass(e.target.value)}
           />
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label={t("rememberme")}
@@ -119,6 +139,8 @@ export default function SignIn() {
           </Grid>
         </Box>
       </Box>
+      <br></br>
+
       <ToastContainer />
     </Container>
   );

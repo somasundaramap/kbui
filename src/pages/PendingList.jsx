@@ -29,7 +29,6 @@ const ListInvoices = () => {
     "accounts/" +
     subId +
     "/invoices?includeInvoiceComponents=true";
-  console.log("In invoiceList " + subName + "|" + URL);
   const fetchInvoices = (a) => {
     fetch(URL, {
       method: "GET",
@@ -50,7 +49,6 @@ const ListInvoices = () => {
 
   function htmlView(a) {
     var w = window.open("", "wnd");
-    console.log("Test" + a);
     const URI_INV_VIEW = "invoices/";
     const URI_HTML = "/html";
     fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {

@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { toast, ToastContainer } from "react-toastify"; 
+import { toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 
 const Payment = () => {
@@ -31,7 +31,6 @@ const Payment = () => {
     "accounts/" +
     subId +
     "/invoices?includeInvoiceComponents=true";
-  console.log("In fetch inv " + subName + "|" + URL);
   const fetchInvoices = (a) => {
     fetch(URL, {
       method: "GET",
@@ -51,21 +50,6 @@ const Payment = () => {
   };
 
   function UpdatePmt() {
-    console.log(
-      "In UpdatePmt" +
-        " accid " +
-        invoice[selectedValue].accountId +
-        " Inv Id " +
-        invoice[selectedValue].invoiceId +
-        " Balance " +
-        invoice[selectedValue].balance +
-        " Uname " +
-        cred +
-        " SelectedValue " +
-        selectedValue +
-        " Index "
-    );
-
     const URI_INV = "invoices/";
     fetch(
       process.env.REACT_APP_BASE_URL +

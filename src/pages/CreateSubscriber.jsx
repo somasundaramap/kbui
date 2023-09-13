@@ -94,7 +94,7 @@ export default function CreateSubscriber() {
           <br></br>
         </Typography>
         <Typography component="h1" variant="h5">
-          InvoiSmart - Create subscriber
+          {t('createsubscriber')}
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
@@ -107,9 +107,6 @@ export default function CreateSubscriber() {
             autoComplete="sub_name"
             autoFocus
             value={subName}
-            helperText={
-              subName.trim().length !== 0 ? "Subscriber name is required" : ""
-            }
             error={!subName}
             onChange={(e) => setSubName(e.target.value)}
           />

@@ -40,7 +40,7 @@ const styles = (theme) => ({
 
 function ListItemComposition(props) {
   const cred = Cookies.get("cred");
-  console.log("landing page: " + cred);
+  console.log(cred);
   const { classes } = props;
   const { t } = useTranslation();
   
