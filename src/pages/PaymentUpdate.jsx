@@ -21,11 +21,7 @@ const PaymentUpdate = () => {
   const { t } = useTranslation();
 
   const fetchSubname = () => {
-    console.log("Viewinvoices: " + cred);
-    console.log(
-      URI_ACCOUNT_PG,
-      process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG
-    );
+    console.log( cred);
     fetch(process.env.REACT_APP_BASE_URL + URI_ACCOUNT_PG, {
       method: "GET",
       headers: new Headers({
@@ -41,18 +37,15 @@ const PaymentUpdate = () => {
       .then((data) => {
         setUsers(data);
       });
-    //.then(console.log(JSON.stringify(users[0].name)))
   };
 
   useEffect(() => {
     fetchSubname();
   }, []);
-  //console.log(JSON.stringify(users[selectedValue].name));
 
   let navigate = useNavigate();
   const routeChange = () => {
     let a = selectedValue;
-    console.log("ID" + users[a].accountId);
     Cookies.set("accId", users[a].accountId);
     Cookies.set("accName", users[a].name);
     let path = "/ui/Payment";

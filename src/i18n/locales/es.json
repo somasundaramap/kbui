@@ -3,6 +3,7 @@
     "password": "Contraseña",
     "signin": "INICIAR SESIÓN",
     "createsubscriber": "Crear suscriptor",
+    "subscribernameisrequired":"El nombre del suscriptor es obligatorio.",
     "createinvoice": "Crear factura",
     "viewinvoices": "Ver facturas",
     "checkbalance":"Consultar saldo",

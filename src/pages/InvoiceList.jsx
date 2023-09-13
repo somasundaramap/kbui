@@ -29,7 +29,6 @@ const ListInvoices = () => {
     "accounts/" +
     subId +
     "/invoices?includeInvoiceComponents=true";
-  console.log("In invoiceList " + subName + "|" + URL);
   const fetchInvoices = (a) => {
     fetch(URL, {
       method: "GET",

@@ -3,6 +3,7 @@
     "password": "Password",
     "signin": "SIGN IN",
     "createsubscriber": "Create subscriber",
+    "subscribernameisrequired":"Subscriber name is required",
     "createinvoice": "Create invoice",
     "viewinvoices": "View Invoices",
     "checkbalance":"Check balance",
