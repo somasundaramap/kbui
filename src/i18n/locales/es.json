@@ -46,5 +46,10 @@
     "Subscribercreationfailed":"Falló la creación del suscriptor",
     "subscribercreated":"Suscriptor creado",
     "invoices":"Facturas",
-    "invoicegenerationfailed":"Falló la generación de factura"
+    "invoicegenerationfailed":"Falló la generación de factura",
+    "updateddate":"Fecha actualizada",
+    "paymentnumber":"Número de pago",
+    "authamount":"Monto de autenticación",
+    "viewpayments":"Ver pagos",
+    "payments":"Pagos"
   }

@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
@@ -15,20 +15,33 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
+ 
 
 export default function SignIn() {
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const cred = btoa(`${name}:${pass}`);
+  const [refresh, setRefresh] = useState(false);
   let navigate = useNavigate();
   const { t } = useTranslation();
   const changeLanguage = (Lng) => {
     i18n.changeLanguage(Lng);
+    Cookies.set("ISLng ", Lng);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    if(!refresh) setRefresh(true)
+  }, [refresh]);
+
+  if (Cookies.get("cred")) {
+    console.log("Cookie found");
+    
+    navigate("/ui/landingpage");
+  }
 
   function myFunction() {
     fetch(process.env.REACT_APP_BASE_URL + "security/subject", {

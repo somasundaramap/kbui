@@ -14,9 +14,6 @@ import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
-import { Refresh } from "@material-ui/icons";
-
-
 
 const ListInvoices = () => {
   useEffect(() => {
@@ -27,10 +24,6 @@ const ListInvoices = () => {
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
   const { t } = useTranslation();
-  let navigate = useNavigate();
-  const [refresh, setRefresh] = useState(false);
-  const [back, setBack] = useState(false);
-  let history = useNavigate();
 
 /*
   useEffect(() => {
@@ -46,7 +39,7 @@ const ListInvoices = () => {
     process.env.REACT_APP_BASE_URL +
     "accounts/" +
     subId +
-    "/invoices?includeInvoiceComponents=true";
+    "/payments";
 
   const fetchInvoices = (a) => {
     fetch(URL, {
@@ -67,9 +60,8 @@ const ListInvoices = () => {
   };
 
   function htmlView(a) {
-    var w = window.open("", "_blank");
-    console.log("Test" + a);
-    const URI_INV_VIEW = "invoices/";
+    var w = window.open("", "_self");
+    const URI_INV_VIEW = "payments/";
     const URI_HTML = "/html";
     fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {
       method: "GET",
@@ -85,6 +77,7 @@ const ListInvoices = () => {
       })
       .then((html) => {
         w.document.body.innerHTML = html;
+      
       });
   }
 
@@ -112,22 +105,20 @@ const ListInvoices = () => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">{t('date')} </TableCell>
-              <TableCell align="right">{t('invoicenumber')}</TableCell>
-              <TableCell align="right">{t('amount')}($)</TableCell>
+              <TableCell align="right">{t('updateddate')} </TableCell>
+              <TableCell align="right">{t('paymentnumber')}</TableCell>
+              <TableCell align="right">{t('authamount')}($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {invoice.map((invField) => (
               <TableRow>
-                <TableCell align="right">{invField.invoiceDate}</TableCell>
+                <TableCell align="right">{invField.transactions[0].effectiveDate.slice(0,10)}</TableCell>
                 <TableCell align="right">
-                  <a href="#" onClick={() => { htmlView(`${invField.invoiceId}`); (<a href="/ui/InvoiceList"></a>);}}>
-                    {invField.invoiceNumber}
-                  </a>
+                    {invField.paymentNumber}
                 </TableCell>
                 <TableCell align="right">
-                  {invField.amount.toFixed(2)}
+                  {invField.purchasedAmount.toFixed(2)}
                 </TableCell>
               </TableRow>
             ))}
