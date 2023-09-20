@@ -13,8 +13,6 @@ import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { Refresh } from "@material-ui/icons";
 
 const ListInvoices = () => {
   useEffect(() => {
@@ -25,10 +23,8 @@ const ListInvoices = () => {
   const subId = Cookies.get("accId");
   const subName = Cookies.get("accName");
   const { t } = useTranslation();
-  let navigate = useNavigate();
-  const [refresh, setRefresh] = useState(false);
-  const [back, setBack] = useState(false);
-  let history = useNavigate();
+  const  close_window_button = '<br></br><Button type="submit" style="margin-left: 46%" onclick="self.close()">Close window </Button> ';
+
 
   /*
   useEffect(() => {
@@ -65,7 +61,7 @@ const ListInvoices = () => {
   };
 
   function htmlView(a) {  
-    var w = window.open("", "_blank");
+    var w = window.open("", "_blank" );
     const URI_INV_VIEW = "invoices/";
     const URI_HTML = "/html";
     fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {
@@ -81,7 +77,7 @@ const ListInvoices = () => {
         return response.text();
       })
       .then((html) => {
-        w.document.body.innerHTML = html;
+        w.document.body.innerHTML = html + close_window_button;
       });
   }
 
