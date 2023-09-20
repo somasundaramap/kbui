@@ -12,11 +12,9 @@ import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
 import logo from "./invoismart-logo.png";
 import { Link } from "@mui/material";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Refresh } from "@material-ui/icons";
-
-
 
 const ListInvoices = () => {
   useEffect(() => {
@@ -32,7 +30,7 @@ const ListInvoices = () => {
   const [back, setBack] = useState(false);
   let history = useNavigate();
 
-/*
+  /*
   useEffect(() => {
     if(!refresh) setRefresh(true)
   }, [Refresh]);
@@ -66,9 +64,8 @@ const ListInvoices = () => {
       });
   };
 
-  function htmlView(a) {
+  function htmlView(a) {  
     var w = window.open("", "_blank");
-    console.log("Test" + a);
     const URI_INV_VIEW = "invoices/";
     const URI_HTML = "/html";
     fetch(process.env.REACT_APP_BASE_URL + URI_INV_VIEW + a + URI_HTML, {
@@ -106,15 +103,17 @@ const ListInvoices = () => {
       </Typography>
       <Typography component="h1" variant="h5" align="center">
         <br></br>
-        <p>{t('subscriber')}: {subName}</p>
+        <p>
+          {t("subscriber")}: {subName}
+        </p>
       </Typography>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="right">{t('date')} </TableCell>
-              <TableCell align="right">{t('invoicenumber')}</TableCell>
-              <TableCell align="right">{t('amount')}($)</TableCell>
+              <TableCell align="right">{t("date")} </TableCell>
+              <TableCell align="right">{t("invoicenumber")}</TableCell>
+              <TableCell align="right">{t("amount")}($)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -122,7 +121,13 @@ const ListInvoices = () => {
               <TableRow>
                 <TableCell align="right">{invField.invoiceDate}</TableCell>
                 <TableCell align="right">
-                  <a href="#" onClick={() => { htmlView(`${invField.invoiceId}`); (<a href="/ui/InvoiceList"></a>);}}>
+                  <a
+                    href="#"
+                    onClick={() => {
+                      htmlView(`${invField.invoiceId}`);
+                      <a href="/ui/InvoiceList"></a>;
+                    }}
+                  >
                     {invField.invoiceNumber}
                   </a>
                 </TableCell>
