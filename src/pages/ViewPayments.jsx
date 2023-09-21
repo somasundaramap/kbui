@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
-const ListInvoices = () => {
+const ListPayments = () => {
   const handleSelectChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -59,7 +59,7 @@ const ListInvoices = () => {
     let a = selectedValue;
     Cookies.set("accId", users[a].accountId);
     Cookies.set("accName", users[a].name);
-    let path = "/ui/InvoiceList";
+    let path = "/ui/PaymentList";
     navigate(path);
   };
 
@@ -80,9 +80,9 @@ const ListInvoices = () => {
         <br></br>
       </Typography>
       <Typography component="h1" variant="h5" align="center">
-        {t('invoices')}
+        {t('payments')}
       </Typography>
-      <br></br> <br></br> <br></br>
+      <br></br> <br></br> 
       <nobr></nobr>
       <TextField
         margin="normal"
@@ -110,4 +110,4 @@ const ListInvoices = () => {
   );
 };
 
-export default ListInvoices;
+export default ListPayments;

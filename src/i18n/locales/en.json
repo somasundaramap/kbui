@@ -46,5 +46,10 @@
     "Subscribercreationfailed":"Subscriber creation failed",
     "subscribercreated":"Subscriber created",
     "invoices":"Invoices",
-    "invoicegenerationfailed":"Invoice generation failed"
+    "invoicegenerationfailed":"Invoice generation failed",
+    "updateddate":"Updated date",
+    "paymentnumber":"Payment Number",
+    "authamount":"Auth amount",
+    "viewpayments":"View payments",
+    "payments":"Payments"
   }

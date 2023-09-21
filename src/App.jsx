@@ -12,6 +12,8 @@ import InvoiceList  from './pages/InvoiceList';
 import Woops404 from './pages/woops404';
 import PendingList from './pages/PendingList';
 import Payment from './pages/Payment';
+import ListPayments from './pages/ViewPayments';
+import PaymentList  from './pages/PaymentList';
 import { toast, ToastContainer } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -32,6 +34,8 @@ function App() {
             <Route path="/ui/pendinglist" element={<PendingList />} />            
             <Route path="/ui/*" element={<Woops404 />} />            
             <Route path="/ui/payment" element={<Payment />} />
+            <Route path="/ui/viewpayments" element={<ListPayments />} />
+            <Route path="/ui/paymentlist" element={<PaymentList />} />
         </Routes>
         <ToastContainer />
         </div>

@@ -20,10 +20,9 @@ import { useNavigate } from "react-router-dom";
 import logo from "./invoismart-logo.png";
 import Cookies from "js-cookie";
 import { Link } from "@mui/material";
-import { toast, ToastContainer } from "react-toastify"; 
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 const styles = (theme) => ({
   menuItem: {
@@ -39,11 +38,16 @@ const styles = (theme) => ({
 });
 
 function ListItemComposition(props) {
+  let navigate = useNavigate();
+  if (!Cookies.get("cred")) {
+    console.log("Cookie found");
+    navigate("/ui/");
+  }
   const cred = Cookies.get("cred");
   console.log(cred);
   const { classes } = props;
   const { t } = useTranslation();
-  
+
   let navigate4 = useNavigate();
   const clickCreateSubscriber = () => {
     let path = "/ui/createsubscriber";
@@ -54,12 +58,11 @@ function ListItemComposition(props) {
     let path = "/ui/createinvoice";
     navigate3(path);
   };
-  let navigate = useNavigate();
+  let navigate1 = useNavigate();
   const clickInvoicesList = () => {
     let path = "/ui/viewinvoices";
-    navigate(path);
+    navigate1(path);
   };
-
   let navigate2 = useNavigate();
   const clickPaymentUpdate = () => {
     let path = "/ui/paymentupdate";
@@ -77,15 +80,20 @@ function ListItemComposition(props) {
     navigate6(path);
   };
 
+  let navigate8 = useNavigate();
+  const clickPaymentsList = () => {
+    let path = "/ui/viewpayments";
+    navigate8(path);
+  };
+
   let navigate7 = useNavigate();
   const clickSignout = () => {
     Cookies.remove("cred");
     Cookies.remove("accId");
     Cookies.remove("accName");
     let path = "/ui/Signin";
-    toast.info(t('signoutsuccessfully'));
+    toast.info(t("signoutsuccessfully"));
     navigate7(path);
-    
   };
 
   return (
@@ -116,7 +124,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('createsubscriber')}
+                primary={t("createsubscriber")}
               />
             </MenuItem>
             <MenuItem onClick={clickCreateInvoice} className={classes.menuItem}>
@@ -126,7 +134,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('createinvoice')}
+                primary={t("createinvoice")}
               />
             </MenuItem>
             <MenuItem onClick={clickInvoicesList} className={classes.menuItem}>
@@ -136,7 +144,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('viewinvoices')}
+                primary={t("viewinvoices")}
               />
             </MenuItem>
             <MenuItem
@@ -149,7 +157,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('checkbalance')} 
+                primary={t("checkbalance")}
               />
             </MenuItem>
 
@@ -160,7 +168,17 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('paymentupdates')}
+                primary={t("paymentupdates")}
+              />
+            </MenuItem>
+            <MenuItem onClick={clickPaymentsList} className={classes.menuItem}>
+              <ListItemIcon className={classes.icon}>
+                <ReceiptOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText
+                classes={{ primary: classes.primary }}
+                inset
+                primary={t("viewpayments")}
               />
             </MenuItem>
             <MenuItem
@@ -173,7 +191,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('updatepassword')}
+                primary={t("updatepassword")}
               />
             </MenuItem>
 
@@ -184,7 +202,7 @@ function ListItemComposition(props) {
               <ListItemText
                 classes={{ primary: classes.primary }}
                 inset
-                primary={t('signout')}
+                primary={t("signout")}
               />
             </MenuItem>
           </MenuList>
