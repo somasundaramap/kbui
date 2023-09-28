@@ -24,6 +24,9 @@ export default function SignIn() {
   const [refresh, setRefresh] = useState(false);
   let navigate = useNavigate();
   const { t } = useTranslation();
+  const urlencoded = new URLSearchParams();
+  urlencoded.append("username", `${name}`);
+  urlencoded.append("password", `${pass}`);
   
   const changeLanguage = (Lng) => {
     i18n.changeLanguage(Lng);
@@ -45,15 +48,14 @@ export default function SignIn() {
   }
 
   function myFunction() {
-    fetch(process.env.REACT_APP_BASE_URL + "security/subject", {
-      method: "GET",
-      headers: new Headers({
-        Authorization: "Basic " + cred,
-        Accept: "application/json",
-        "X-Killbill-ApiKey": process.env.REACT_APP_API_KEY,
-        "X-Killbill-ApiSecret": process.env.REACT_APP_API_SECRET,
-      }),
-    })
+      fetch("http://localhost:8081/login", {
+        method: "POST",
+        headers: new Headers({
+          "Content-Type": "application/x-www-form-urlencoded",
+        }),
+        body: urlencoded,
+      })
+       
       .then((res) => {
         if (!res.ok) {
           throw Error("Failed");
